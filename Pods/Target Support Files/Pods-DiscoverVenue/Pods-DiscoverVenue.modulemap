@@ -1,0 +1,6 @@
+framework module Pods_DiscoverVenue {
+  umbrella header "Pods-DiscoverVenue-umbrella.h"
+
+  export *
+  module * { export * }
+}
