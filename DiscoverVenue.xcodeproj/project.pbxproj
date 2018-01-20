@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1D8D907B00EF16E375F584E5 /* Pods_DiscoverVenue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6420E9CFE56D0AC44E0D8D1A /* Pods_DiscoverVenue.framework */; };
+		DB9FFD592013F71000769FCA /* ModalSavedVenuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9FFD582013F71000769FCA /* ModalSavedVenuesView.swift */; };
+		DB9FFD5B2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9FFD5A2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift */; };
 		E209E8272012DA2E00A1372C /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E8262012DA2E00A1372C /* NetworkHelper.swift */; };
 		E209E8292012DA3A00A1372C /* VenueAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E8282012DA3A00A1372C /* VenueAPIClient.swift */; };
 		E209E82D2012DA7700A1372C /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E82C2012DA7700A1372C /* Venue.swift */; };
@@ -38,6 +40,8 @@
 		402A2967B6C8A2ABE3D42100 /* Pods-DiscoverVenue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiscoverVenue.release.xcconfig"; path = "Pods/Target Support Files/Pods-DiscoverVenue/Pods-DiscoverVenue.release.xcconfig"; sourceTree = "<group>"; };
 		6420E9CFE56D0AC44E0D8D1A /* Pods_DiscoverVenue.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DiscoverVenue.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6783B9B646B57D0D7CBCF9F3 /* Pods-DiscoverVenue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiscoverVenue.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DiscoverVenue/Pods-DiscoverVenue.debug.xcconfig"; sourceTree = "<group>"; };
+		DB9FFD582013F71000769FCA /* ModalSavedVenuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSavedVenuesView.swift; sourceTree = "<group>"; };
+		DB9FFD5A2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		E209E8262012DA2E00A1372C /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		E209E8282012DA3A00A1372C /* VenueAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAPIClient.swift; sourceTree = "<group>"; };
 		E209E82C2012DA7700A1372C /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -116,7 +120,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		E209E82E2012DA9500A1372C /* View Controllers */ = {
+		E209E82E2012DA9500A1372C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				E209E82F2012DAB600A1372C /* AddCollectionViewController.swift */,
@@ -126,7 +130,7 @@
 				E209E8372012DB2300A1372C /* SearchResultsTableViewController.swift */,
 				E209E8392012DB4000A1372C /* UserCreatedCollectionsViewController.swift */,
 			);
-			path = "View Controllers";
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		E209E83B2012DC5100A1372C /* Views */ = {
@@ -136,8 +140,10 @@
 				E209E83E2012DC7C00A1372C /* AddVenueView.swift */,
 				E209E8402012DC8F00A1372C /* MapView.swift */,
 				E209E8422012DC9E00A1372C /* SearchResultDetailView.swift */,
+				DB9FFD5A2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift */,
 				E209E8442012DCAC00A1372C /* SearchResultsTableView.swift */,
 				E209E8462012DCBA00A1372C /* UserCreatedCollectionsView.swift */,
+				DB9FFD582013F71000769FCA /* ModalSavedVenuesView.swift */,
 				E209E84E2012DD7E00A1372C /* VenueTableViewCell.swift */,
 				E209E84C2012DD6200A1372C /* VenueCollectionViewCell.swift */,
 			);
@@ -166,7 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				E209E83B2012DC5100A1372C /* Views */,
-				E209E82E2012DA9500A1372C /* View Controllers */,
+				E209E82E2012DA9500A1372C /* ViewControllers */,
 				E209E82A2012DA5B00A1372C /* Models */,
 				E209E8252012D9FD00A1372C /* Services */,
 				E23BF39B2012B7CA00278589 /* Supporting Files */,
@@ -328,6 +334,8 @@
 				E209E8412012DC8F00A1372C /* MapView.swift in Sources */,
 				E209E8272012DA2E00A1372C /* NetworkHelper.swift in Sources */,
 				E2D509352012FED100A0A269 /* VenueImageAPIClient.swift in Sources */,
+				DB9FFD5B2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift in Sources */,
+				DB9FFD592013F71000769FCA /* ModalSavedVenuesView.swift in Sources */,
 				E209E8472012DCBA00A1372C /* UserCreatedCollectionsView.swift in Sources */,
 				E209E82D2012DA7700A1372C /* Venue.swift in Sources */,
 				E209E8302012DAB600A1372C /* AddCollectionViewController.swift in Sources */,
