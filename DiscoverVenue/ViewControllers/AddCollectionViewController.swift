@@ -36,8 +36,21 @@ class AddCollectionViewController: UIViewController {
     }
     
     @ objc func createCollection() {
-        print("Collection Created")
-        // Add Collection to UserCreatedCollectionsView Data Array
+        if addCollectionView.textField.text == "" {
+            print("Textfield was empty")
+            
+            let alert = UIAlertController(title: "Error", message: "Please enter text to save a New Collection", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Got it", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            print("Collection Created")
+            
+            // Add Collection to UserCreatedCollectionsView Data Array
+            // The easiest way to do this is to add it directly to the File Manager and have the UCCVC get the data from the FileManager in it's viewDidpperar function
+            let alert = UIAlertController(title: "New Collection Saved", message: "\(addCollectionView.textField.text ?? "Unnamed Collection") was saved to Collections", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @ objc func cancelButton() {
@@ -57,7 +70,8 @@ extension AddCollectionViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("Enter was Pressed")
-        //guard let text = textField.text else {return true}
+        createCollection()
+        guard textField.text != "" else {return true}
         
         
         
