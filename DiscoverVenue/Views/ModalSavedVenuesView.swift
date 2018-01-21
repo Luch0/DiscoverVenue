@@ -16,7 +16,7 @@ class ModalSavedVenuesView: UIView {
         label.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         label.text = "Venues in Collection"
         label.backgroundColor = .clear
-        label.textColor = UIColor(red: 0.822, green: 0.745, blue: 0.822, alpha: 1.00)
+        label.textColor = UIColor(red: 0.559, green: 0.559, blue: 0.559, alpha: 1.00)
         label.numberOfLines = 0
         return label
     }()
@@ -42,13 +42,13 @@ class ModalSavedVenuesView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = UIColor(red: 0.588, green: 0.357, blue: 1.000, alpha: 1.00)
-        setupBlurEffectView()
+        backgroundColor = .purple
+        //setupBlurEffectView()
         setupViews()
     }
     
     private func setupBlurEffectView() {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light) // .light, .dark, .prominent, .regular, .extraLight
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark) // .light, .dark, .prominent, .regular, .extraLight
         let visualEffect = UIVisualEffectView(frame: UIScreen.main.bounds)
         visualEffect.effect = blurEffect
         addSubview(visualEffect)

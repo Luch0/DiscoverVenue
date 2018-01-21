@@ -55,7 +55,8 @@ class ModalSavedVenuesViewController: UIViewController {
         view.backgroundColor = .purple
         
         // Left Bar Button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .plain, target: self, action: #selector(backButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "◀ Back", style: .done, target: self, action: #selector(backButton))
+        //navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "back"), style: .done, target: self, action: #selector(backButton))
         
     }
     
