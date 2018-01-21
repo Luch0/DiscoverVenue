@@ -10,6 +10,7 @@
 		1D8D907B00EF16E375F584E5 /* Pods_DiscoverVenue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6420E9CFE56D0AC44E0D8D1A /* Pods_DiscoverVenue.framework */; };
 		DB9FFD592013F71000769FCA /* ModalSavedVenuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9FFD582013F71000769FCA /* ModalSavedVenuesView.swift */; };
 		DB9FFD5B2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9FFD5A2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift */; };
+		DB9FFD5F2014012D00769FCA /* ModalSavedVenuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9FFD5E2014012D00769FCA /* ModalSavedVenuesViewController.swift */; };
 		E209E8272012DA2E00A1372C /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E8262012DA2E00A1372C /* NetworkHelper.swift */; };
 		E209E8292012DA3A00A1372C /* VenueAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E8282012DA3A00A1372C /* VenueAPIClient.swift */; };
 		E209E82D2012DA7700A1372C /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E82C2012DA7700A1372C /* Venue.swift */; };
@@ -42,6 +43,7 @@
 		6783B9B646B57D0D7CBCF9F3 /* Pods-DiscoverVenue.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DiscoverVenue.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DiscoverVenue/Pods-DiscoverVenue.debug.xcconfig"; sourceTree = "<group>"; };
 		DB9FFD582013F71000769FCA /* ModalSavedVenuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSavedVenuesView.swift; sourceTree = "<group>"; };
 		DB9FFD5A2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB9FFD5E2014012D00769FCA /* ModalSavedVenuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSavedVenuesViewController.swift; sourceTree = "<group>"; };
 		E209E8262012DA2E00A1372C /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		E209E8282012DA3A00A1372C /* VenueAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAPIClient.swift; sourceTree = "<group>"; };
 		E209E82C2012DA7700A1372C /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				E209E8352012DB0600A1372C /* SearchResultDetailViewController.swift */,
 				E209E8312012DAD200A1372C /* AddVenueViewController.swift */,
 				E209E8332012DAEB00A1372C /* MapViewController.swift */,
+				DB9FFD5E2014012D00769FCA /* ModalSavedVenuesViewController.swift */,
 				E209E8372012DB2300A1372C /* SearchResultsTableViewController.swift */,
 				E209E8392012DB4000A1372C /* UserCreatedCollectionsViewController.swift */,
 			);
@@ -330,6 +333,7 @@
 				E209E8322012DAD200A1372C /* AddVenueViewController.swift in Sources */,
 				E2D509312012FE6400A0A269 /* LocationService.swift in Sources */,
 				E209E83D2012DC6B00A1372C /* AddCollectionView.swift in Sources */,
+				DB9FFD5F2014012D00769FCA /* ModalSavedVenuesViewController.swift in Sources */,
 				E2D509372012FF1600A0A269 /* VenueImage.swift in Sources */,
 				E209E8412012DC8F00A1372C /* MapView.swift in Sources */,
 				E209E8272012DA2E00A1372C /* NetworkHelper.swift in Sources */,

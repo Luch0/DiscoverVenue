@@ -13,15 +13,15 @@ class ModalSavedVenuesView: UIView {
     lazy var topLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 35, weight: .bold)
         label.text = "Venues in Collection"
         label.backgroundColor = .clear
-        label.textColor = UIColor(red: 0.922, green: 0.745, blue: 0.922, alpha: 1.00)
+        label.textColor = UIColor(red: 0.822, green: 0.745, blue: 0.822, alpha: 1.00)
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var tableView: UITableView = {
+    lazy var venueTableView: UITableView = {
         let tv = UITableView()
         //create and register a cell
         tv.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueTableViewCell")
@@ -42,8 +42,8 @@ class ModalSavedVenuesView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .purple
-        
+        backgroundColor = UIColor(red: 0.588, green: 0.357, blue: 1.000, alpha: 1.00)
+        setupBlurEffectView()
         setupViews()
     }
     
@@ -57,6 +57,7 @@ class ModalSavedVenuesView: UIView {
     private func setupViews() {
         setupBlurEffectView()
         addSubview(topLabel)
+        addSubview(venueTableView)
         
         topLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(1)
@@ -64,6 +65,14 @@ class ModalSavedVenuesView: UIView {
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.09)
         }
+        
+        venueTableView.snp.makeConstraints { (make) in
+            make.top.equalTo(topLabel.snp.bottom)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
+        }
+        
         
     }
     

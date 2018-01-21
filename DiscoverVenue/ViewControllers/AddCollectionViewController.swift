@@ -57,7 +57,7 @@ extension AddCollectionViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         print("Enter was Pressed")
-        guard let text = textField.text else {return true}
+        //guard let text = textField.text else {return true}
         
         
         

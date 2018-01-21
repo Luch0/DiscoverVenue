@@ -13,19 +13,7 @@ class UserCreatedCollectionsViewController: UIViewController {
     let userCreatedCollectionsView = UserCreatedCollectionsView()
     let cellSpacing: CGFloat =  5.0
     
-    // TODO:
-    
-    // add right “+” sign button to navigation bar
-    
-    // Textfield Delegate
-    
-    // ModalSaveView (appears when “+” sign button is pressed)
-    
-    // ModalSavedVenuesView (appears when a CollectionViewCell is clicked)
-    
-    
-    
-    
+    var sampleTestArray = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +27,7 @@ class UserCreatedCollectionsViewController: UIViewController {
     }
     
     func setUpView() {
-        view.backgroundColor = .yellow
+        view.backgroundColor = .purple
         navigationItem.title = "My Collections"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
@@ -80,20 +68,21 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         
         print("The Collection View for IndexPath: \(indexPath.row) should pop up now")
         
-        /*
          // identify a specific collection
-         let aSpecificCollection = UserCollections[indexPath.row]
+         //let aSpecificCollection = UserCollections[indexPath.row]
          
          // using dependency injection to pass Data Object into Venue Collection View Controller
-         let savedVenueVC = SavedVenueViewController()
+         let modalSavedVenuesVC = ModalSavedVenuesViewController()
+        
+        let mSVVCinNavCon = UINavigationController(rootViewController: modalSavedVenuesVC)
          
-         savedVenueVC.modalTransitionStyle = .crossDissolve
-         savedVenueVC.modalPresentationStyle = .overCurrentContext
-         present(savedVenueVC, animated: true, completion: nil)
+         modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
+         modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
+         present(mSVVCinNavCon, animated: true, completion: nil)
          
          //func to configure view on VC
-         savedVenueVC.savedVenueView.configureDetailView(forecast: aSpecificDay, cityName: cityName)
-         */
+        modalSavedVenuesVC.configureSavedVenueVC(testArray: sampleTestArray)
+        
     }
     
 }
