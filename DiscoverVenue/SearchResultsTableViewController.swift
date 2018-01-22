@@ -7,29 +7,63 @@
 //
 
 import UIKit
+import GameplayKit
 
 class SearchResultsTableViewController: UIViewController {
-
+    
+    let venueView = SearchResultsTableView()
+    var venues = [Venue]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .yellow
+        view.addSubview(venueView)
+        
+        //        setup delegate and datasource
+        venueView.tableView.dataSource = self
+        venueView.tableView.delegate = self
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension SearchResultsTableViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VenueCell", for: indexPath) as! VenueTableViewCell
+        //        TODO: we will be passing a venue Object here
+        //            let venue = venues[indexPath.row]
+        //            cell.congfigureCell(venue: venue)
+        cell.nameLabel.text = "Hello"
+        cell.venueImageView.image = #imageLiteral(resourceName: "placeholder")
+        return cell
     }
-    */
-
 }
+
+extension SearchResultsTableViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //        TODO: use dependency injection to pass Venue Model Object to dvc
+        //            let venue = venues[indexPath.row]
+        let cell = tableView.cellForRow(at: indexPath) as! VenueTableViewCell
+        //            var cellImage: UIImage!
+        //            if let image = cell.venueImageView.image {
+        //                cellImage = image
+        //            } else {
+        //                cellImage = UIImage(named:"placeholder-image")
+        //            }
+        cell.nameLabel.text = "Hello"
+        cell.ratingLabel.text = "Good"
+        
+        let dvc = SearchResultsDetailViewController()//(venue: venue, image: cellImage )
+        //        the way the modal comes on the screen
+        dvc.modalTransitionStyle = .crossDissolve
+        dvc.modalPresentationStyle = .overCurrentContext
+        present(dvc, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160.0
+    }
+}
+
