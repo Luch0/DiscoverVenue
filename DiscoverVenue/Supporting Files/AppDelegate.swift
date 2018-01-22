@@ -16,6 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let tabBarController = UITabBarController()
+        let mapViewController = MapViewController()
+        let mapViewNavCon = UINavigationController(rootViewController: mapViewController)
+        mapViewController.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "search"), tag: 0)
+        let userCreatedCollectionsVC = UserCreatedCollectionsViewController()
+        let userCreatedCollectionsNavCon = UINavigationController(rootViewController: userCreatedCollectionsVC)
+        userCreatedCollectionsVC.tabBarItem = UITabBarItem(title: "Collections", image: #imageLiteral(resourceName: "collections"), tag: 1)
+        tabBarController.viewControllers = [mapViewNavCon, userCreatedCollectionsNavCon]
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
