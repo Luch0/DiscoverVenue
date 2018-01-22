@@ -13,7 +13,7 @@ class VenueCollectionViewCell: UICollectionViewCell {
     
     lazy var venueImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "placeholderImage")
+        imageView.image = #imageLiteral(resourceName: "placeholder")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

@@ -57,12 +57,20 @@ class ModalSavedVenuesView: UIView {
     private func setupViews() {
         setupBlurEffectView()
         addSubview(topLabel)
+        addSubview(tableView)
         
         topLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(safeAreaLayoutGuide.snp.top).offset(1)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.09)
+        }
+        
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(topLabel.snp.bottom)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
         }
         
     }
