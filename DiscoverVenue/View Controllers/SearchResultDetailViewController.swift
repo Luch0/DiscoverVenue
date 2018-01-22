@@ -6,30 +6,36 @@
 //  Copyright © 2018 Luis Calle. All rights reserved.
 //
 
-import UIKit
+import SnapKit
 
-class SearchResultDetailViewController: UIViewController {
-
+class SearchResultDetailedViewController: UIViewController {
+    
+    let myView = SearchResultDetailedView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        configureNavBar()
+        view.backgroundColor = .yellow
+        view.addSubview(myView)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func configureNavBar() {
+        let addBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVenueButton))
+        navigationItem.rightBarButtonItem = addBarItem
     }
-    */
-
+    
+    @objc func addVenueButton() {
+        print("add button pressed")
+        let addVenueVC = AddVenueViewController()
+        //create nav controller as its root
+        let navController = UINavigationController(rootViewController:addVenueVC )
+        addVenueVC.modalTransitionStyle = .crossDissolve
+        addVenueVC.modalPresentationStyle = .currentContext
+        
+        //present nav controller instead for nav bar
+        present(navController, animated: true, completion: nil)
+        
+    }
+    
 }
