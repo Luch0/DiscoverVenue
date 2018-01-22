@@ -22,8 +22,8 @@ class ModalSavedVenuesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(modalSavedVenuesView)
-        modalSavedVenuesView.venueTableView.delegate = self
-        modalSavedVenuesView.venueTableView.dataSource = self
+        modalSavedVenuesView.tableView.delegate = self
+        modalSavedVenuesView.tableView.dataSource = self
         setupView()
         animateTable()
 
@@ -36,9 +36,9 @@ class ModalSavedVenuesViewController: UIViewController {
 //    }
     
     func animateTable() {
-        modalSavedVenuesView.venueTableView.reloadData()
-        let cells = modalSavedVenuesView.venueTableView.visibleCells
-        let tableViewHeight = modalSavedVenuesView.venueTableView.bounds.size.height
+        modalSavedVenuesView.tableView.reloadData()
+        let cells = modalSavedVenuesView.tableView.visibleCells
+        let tableViewHeight = modalSavedVenuesView.tableView.bounds.size.height
         for cell in cells {
             cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
         }
