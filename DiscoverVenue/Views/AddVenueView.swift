@@ -5,7 +5,6 @@
 //  Created by Luis Calle on 1/19/18.
 //  Copyright © 2018 Luis Calle. All rights reserved.
 //
-
 import UIKit
 
 class AddVenueView: UIView {

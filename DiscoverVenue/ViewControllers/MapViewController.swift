@@ -52,6 +52,17 @@ class MapViewController: UIViewController {
         configureNavigationBar()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // prevent from navbar to grow large when going back to mapview
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        mapView.venueSearchbBar.resignFirstResponder()
+        mapView.locationSearchBar.resignFirstResponder()
+    }
+    
     func configureNavigationBar() {
         guard let mapViewNavBar = navigationController else { return }
         mapViewNavBar.navigationBar.barTintColor = UIColor.groupTableViewBackground
@@ -62,35 +73,66 @@ class MapViewController: UIViewController {
     }
     
     @objc func showVenuesTableView() {
-        // TODO: segue to list of venues in table view
+        let tableViewResults = SearchResultsTableViewController()
+        self.navigationController?.pushViewController(tableViewResults, animated: true)
+    }
+    
+    private func showAlertController(with title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
 }
 
 extension MapViewController: MKMapViewDelegate {
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapView.setRegion(region, animated: true)
+    }
     
 }
 
 extension MapViewController: UISearchBarDelegate {
     
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        mapView.locationSearchBar.placeholder = "Enter location"
+        return true
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // TODO: implement delegate methods
         //mapView.venuesCollectionView.isHidden = false
         
-
-        guard let locationText = mapView.locationSearchBar.text else { return }
-        guard let locationTextEncoded = locationText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
         guard let venueText = mapView.venueSearchbBar.text else { return }
+        if venueText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            showAlertController(with: "Error", message: "Must enter a venue to search")
+            searchBar.text = ""
+            return
+        }
         guard let venueTextEncoded = venueText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) else { return }
-
         
-        VenueAPIClient.manager.getVenues(near: locationTextEncoded, with: venueTextEncoded, completionHandler: {
-            self.mapView.venuesMapView.removeAnnotations(self.mapView.venuesMapView.annotations)
+        guard let locationText = mapView.locationSearchBar.text else { return }
+        var locationTextEncoded: String?
+        if locationText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            locationTextEncoded = "Queens, NY".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+            mapView.locationSearchBar.placeholder = "Queens, NY"
+        } else {
+            locationTextEncoded = locationText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        }
+        guard let locationTextUnwrapped = locationTextEncoded else { return }
+        VenueAPIClient.manager.getVenues(near: locationTextUnwrapped, with: venueTextEncoded, completionHandler: {
             self.venues.removeAll()
             self.venueAnnotations.removeAll()
+            self.mapView.venuesMapView.removeAnnotations(self.mapView.venuesMapView.annotations)
             self.venues = $0
-        }, errorHandler: { print($0) })
+        }, errorHandler: {
+            print($0)
+            self.showAlertController(with: "Error", message: "No results found")
+        })
         searchBar.resignFirstResponder()
     }
     
