@@ -8,5 +8,5 @@ target 'DiscoverVenue' do
   # Pods for DiscoverVenue
 	pod 'SnapKit', '~> 4.0'
     pod 'Alamofire', '~> 4.5'
-    Pod 'Kingfisher', '~> 4.0'
+    pod 'Kingfisher', '~> 4.0'
 end
