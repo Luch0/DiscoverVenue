@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+struct VenuesCollections: Codable {
+    let collectionName: String
+    let savedVenues: [SavedVenue]
+}
+
+struct SavedVenue: Codable {
+    let venue: Venue
+    let tip: String
+    let imageURL: String
+}
