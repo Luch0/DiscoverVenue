@@ -71,7 +71,18 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected IndexPath: \(indexPath)")
-        //Segue to venueView here 
+        //Segue to venueView here
+        
+        let SRDVC = SearchResultDetailViewController()
+        self.navigationController?.pushViewController(SRDVC, animated: true)
+        
+//        let DetailVC = ModalSavedVenuesViewController()
+//
+//        let mSVVCinNavCon = UINavigationController(rootViewController: DetailVC)
+//
+//        DetailVC.modalTransitionStyle = .crossDissolve
+//        DetailVC.modalPresentationStyle = .overCurrentContext
+//        present(mSVVCinNavCon, animated: true, completion: nil)
     }
     
 }
