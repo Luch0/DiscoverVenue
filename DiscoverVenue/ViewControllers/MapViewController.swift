@@ -42,6 +42,17 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mapView)
+        if let lastSearchedVenue = UserDefaultsHelper.manager.getLastSearchedVenue() {
+            mapView.venueSearchbBar.placeholder = lastSearchedVenue
+        } else {
+            mapView.venueSearchbBar.placeholder = "Search for a Venue"
+        }
+        
+        if let lastSearchedLocation = UserDefaultsHelper.manager.getLastSearchedLocation() {
+            mapView.locationSearchBar.placeholder = lastSearchedLocation
+        } else {
+            mapView.locationSearchBar.placeholder = "Search for a Location"
+        }
         mapView.venueSearchbBar.delegate = self
         mapView.locationSearchBar.delegate = self
         mapView.venuesCollectionView.dataSource = self

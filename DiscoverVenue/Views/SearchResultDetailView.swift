@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 class SearchResultDetailView: UIView {
+
     
     lazy var label: UILabel = {
         let label = UILabel()
@@ -127,3 +128,4 @@ class SearchResultDetailView: UIView {
     }
     
 }
+
