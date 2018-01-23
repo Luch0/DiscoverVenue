@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//
+
 class UserCreatedCollectionsViewController: UIViewController {
     
     let userCreatedCollectionsView = UserCreatedCollectionsView()
