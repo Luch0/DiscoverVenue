@@ -89,12 +89,14 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
 extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 5
+        return sampleTestArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionsCustomCollectionViewCell", for: indexPath) as! CollectionsCustomCollectionViewCell
+        
+        let name = sampleTestArray[indexPath.row]
         
         //cell.spinner.isHidden = false
         //cell.spinner.startAnimating()
