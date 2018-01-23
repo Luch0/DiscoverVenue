@@ -1,9 +1,9 @@
 //
 //  UserCreatedCollectionsViewController.swift
-//  DiscoverVenue
+//  DiscoverAVenue
 //
-//  Created by Luis Calle on 1/19/18.
-//  Copyright © 2018 Luis Calle. All rights reserved.
+//  Created by Richard Crichlow on 1/18/18.
+//  Copyright © 2018 Caroline Cruz. All rights reserved.
 //
 
 import UIKit
@@ -68,19 +68,19 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         
         print("The Collection View for IndexPath: \(indexPath.row) should pop up now")
         
-        // identify a specific collection
-        //let aSpecificCollection = UserCollections[indexPath.row]
-        
-        // using dependency injection to pass Data Object into Venue Collection View Controller
-        let modalSavedVenuesVC = ModalSavedVenuesViewController()
+         // identify a specific collection
+         //let aSpecificCollection = UserCollections[indexPath.row]
+         
+         // using dependency injection to pass Data Object into Venue Collection View Controller
+         let modalSavedVenuesVC = ModalSavedVenuesViewController()
         
         let mSVVCinNavCon = UINavigationController(rootViewController: modalSavedVenuesVC)
-        
-        modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
-        modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
-        present(mSVVCinNavCon, animated: true, completion: nil)
-        
-        //func to configure view on VC
+         
+         modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
+         modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
+         present(mSVVCinNavCon, animated: true, completion: nil)
+         
+         //func to configure view on VC
         modalSavedVenuesVC.configureSavedVenueVC(testArray: sampleTestArray)
         
     }
@@ -98,7 +98,7 @@ extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
         
         //cell.spinner.isHidden = false
         //cell.spinner.startAnimating()
-        cell.collectionImageView.image = #imageLiteral(resourceName: "placeholderImage")
+        cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder")
         cell.collectionNameLabel.text = "IndexPath : \(indexPath.row)"
         
         
@@ -130,3 +130,5 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegateFlowLayo
         return cellSpacing
     }
 }
+
+

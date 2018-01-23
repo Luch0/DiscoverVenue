@@ -6,6 +6,7 @@
 //  Copyright © 2018 Luis Calle. All rights reserved.
 //
 
+
 import UIKit
 import SnapKit
 
@@ -66,13 +67,13 @@ class VenueTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         //    we get the frame of the UI element here
         super.layoutSubviews()
-        venueImageView.layer.cornerRadius = 35//venueImageView.bounds.width/2.0
+        venueImageView.layer.cornerRadius = venueImageView.bounds.width/2.0
         venueImageView.layer.masksToBounds = true // so it will not bleed outside the bounds
     }
     
     private func setupViews() {
-        setupVenueImage()
         setupSpinner()
+        setupVenueImage()
         setupNameLabel()
         setupRatingLabel()
         
@@ -113,27 +114,5 @@ class VenueTableViewCell: UITableViewCell {
             
         }
     }
-    
-        public func congfigureCell(venue: Venue) {
-            nameLabel.text = venue.name
-    //        if let imageURL = venue.url {
-    //            guard let strToURL = URL(string: venue.url!) else {return}
-    //
-    //            if let image = ImageCache.manager.cachedImage(url: strToURL) {
-    //                venueImageView.image = image
-    //            } else {
-    //                ImageCache.manager.processImageInBackground(imageURL: strToURL, completion: {(error, image) in
-    //                    if let error = error {
-    //                        print("venueCell = error processing image: \(error.localizedDescription)")
-    //                    } else if let image = image {
-    //                        DispatchQueue.main.async {
-    //                            self.venueImageView.image = image
-    //                        }
-    //                    }
-    //                })
-    //            }
-    //        } else {
-    //            venueImageView.image = UIImage(named:"placeholder-image")
-    //        }
-        }
 }
+

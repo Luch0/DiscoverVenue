@@ -9,7 +9,7 @@
 import UIKit
 
 class AddCollectionView: UIView {
-    
+
     //TextField
     lazy var textField: UITextField = {
         let tField = UITextField()
@@ -61,5 +61,6 @@ class AddCollectionView: UIView {
         }
         
     }
-    
+
+
 }

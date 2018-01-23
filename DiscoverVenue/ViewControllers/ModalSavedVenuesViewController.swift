@@ -2,14 +2,14 @@
 //  ModalSavedVenuesViewController.swift
 //  DiscoverVenue
 //
-//  Created by Luis Calle on 1/22/18.
+//  Created by Richard Crichlow on 1/20/18.
 //  Copyright © 2018 Luis Calle. All rights reserved.
 //
 
 import UIKit
 
 class ModalSavedVenuesViewController: UIViewController {
-    
+
     //Func to set up modalSavedVenuesVC when called
     func configureSavedVenueVC(testArray: [Int]) {
         self.sampleCityArray = testArray
@@ -22,23 +22,23 @@ class ModalSavedVenuesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(modalSavedVenuesView)
-        modalSavedVenuesView.venueTableView.delegate = self
-        modalSavedVenuesView.venueTableView.dataSource = self
+        modalSavedVenuesView.tableView.delegate = self
+        modalSavedVenuesView.tableView.dataSource = self
         setupView()
         animateTable()
-        
+
         
     }
     
-    //    override func viewDidAppear(_ animated: Bool) {
-    //        super.viewDidAppear(animated)
-    //        animateTable()
-    //    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        animateTable()
+//    }
     
     func animateTable() {
-        modalSavedVenuesView.venueTableView.reloadData()
-        let cells = modalSavedVenuesView.venueTableView.visibleCells
-        let tableViewHeight = modalSavedVenuesView.venueTableView.bounds.size.height
+        modalSavedVenuesView.tableView.reloadData()
+        let cells = modalSavedVenuesView.tableView.visibleCells
+        let tableViewHeight = modalSavedVenuesView.tableView.bounds.size.height
         for cell in cells {
             cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
         }
@@ -50,7 +50,7 @@ class ModalSavedVenuesViewController: UIViewController {
             delayCounter += 1
         }
     }
-    
+
     func setupView() {
         view.backgroundColor = .purple
         
@@ -65,13 +65,24 @@ class ModalSavedVenuesViewController: UIViewController {
     }
     
     
-    
+
 }
 extension ModalSavedVenuesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selected IndexPath: \(indexPath)")
         //Segue to venueView here
+        
+        let SRDVC = SearchResultDetailViewController()
+        self.navigationController?.pushViewController(SRDVC, animated: true)
+        
+//        let DetailVC = ModalSavedVenuesViewController()
+//
+//        let mSVVCinNavCon = UINavigationController(rootViewController: DetailVC)
+//
+//        DetailVC.modalTransitionStyle = .crossDissolve
+//        DetailVC.modalPresentationStyle = .overCurrentContext
+//        present(mSVVCinNavCon, animated: true, completion: nil)
     }
     
 }
@@ -89,7 +100,7 @@ extension ModalSavedVenuesViewController: UITableViewDataSource {
         let aInt = sampleCityArray[indexPath.row]
         
         cell.textLabel?.text = "Int: \(aInt)"
-        cell.imageView?.image = #imageLiteral(resourceName: "back")
+        cell.imageView?.image = #imageLiteral(resourceName: "placeholder")
         
         return cell
         
@@ -98,3 +109,4 @@ extension ModalSavedVenuesViewController: UITableViewDataSource {
     
     
 }
+

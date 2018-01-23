@@ -24,7 +24,7 @@ class SearchResultsTableViewController: UIViewController {
     }
     
     private func configureNavBar() {
-        navigationItem.title = "Results"
+        navigationItem.title = "Result List"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
     }
@@ -38,8 +38,8 @@ extension SearchResultsTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VenueCell", for: indexPath) as! VenueTableViewCell
         //        TODO: we will be passing a venue Object here
-        //            let venue = venues[indexPath.row]
-        //            cell.congfigureCell(venue: venue)
+//                    let venue = venues[indexPath.row]
+//                    cell.congfigureCell(venue: venue)
         cell.nameLabel.text = "Hello"
         cell.venueImageView.image = #imageLiteral(resourceName: "placeholderImage")
         return cell
@@ -49,7 +49,7 @@ extension SearchResultsTableViewController: UITableViewDataSource {
 extension SearchResultsTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        TODO: use dependency injection to pass Venue Model Object to dvc
-        //            let venue = venues[indexPath.row]
+//                    let venue = venues[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath) as! VenueTableViewCell
         //            var cellImage: UIImage!
         //            if let image = cell.venueImageView.image {

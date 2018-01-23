@@ -2,7 +2,7 @@
 //  CollectionsCustomCollectionViewCell.swift
 //  DiscoverVenue
 //
-//  Created by Luis Calle on 1/22/18.
+//  Created by Richard Crichlow on 1/20/18.
 //  Copyright © 2018 Luis Calle. All rights reserved.
 //
 
@@ -14,7 +14,7 @@ class CollectionsCustomCollectionViewCell: UICollectionViewCell {
     // ImageView
     lazy var collectionImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "placeholderImage")
+        imageView.image = #imageLiteral(resourceName: "placeholder")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
