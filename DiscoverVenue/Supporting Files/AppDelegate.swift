@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let tabBarController = UITabBarController()
-        let mapViewController = MapViewController()
+        
+        let venueAPIclient = VenueAPIClient()
+        let mapViewController = MapViewController(venueAPIclient: venueAPIclient)
+        
         let mapViewNavCon = UINavigationController(rootViewController: mapViewController)
         mapViewController.tabBarItem = UITabBarItem(title: "Search", image: #imageLiteral(resourceName: "search"), tag: 0)
         let userCreatedCollectionsVC = UserCreatedCollectionsViewController()
