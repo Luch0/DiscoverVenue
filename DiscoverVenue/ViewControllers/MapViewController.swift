@@ -52,9 +52,13 @@ class MapViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    let launchScreen = LaunchScreen()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(mapView)
+        view.addSubview(launchScreen)
+        launchScreen.delegate = self
         if let lastSearchedVenue = UserDefaultsHelper.manager.getLastSearchedVenue() {
             mapView.venueSearchbBar.placeholder = lastSearchedVenue
         } else {
@@ -245,5 +249,12 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
     }
+    
+}
+extension MapViewController: LaunchViewDelegate {
+    func animationEnded() {
+        launchScreen.removeFromSuperview()
+    }
+    
     
 }
