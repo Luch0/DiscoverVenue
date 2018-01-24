@@ -11,6 +11,8 @@ import SnapKit
 
 class VenueTableViewCell: UITableViewCell {
     
+    private var venueImageAPIClient: VenueImageAPIClient!
+    
     //    ImageView
     lazy var venueImageView: UIImageView = {
         let imageView = UIImageView()
@@ -114,26 +116,21 @@ class VenueTableViewCell: UITableViewCell {
         }
     }
     
-        public func congfigureCell(venue: Venue) {
-            nameLabel.text = venue.name
-    //        if let imageURL = venue.url {
-    //            guard let strToURL = URL(string: venue.url!) else {return}
-    //
-    //            if let image = ImageCache.manager.cachedImage(url: strToURL) {
-    //                venueImageView.image = image
-    //            } else {
-    //                ImageCache.manager.processImageInBackground(imageURL: strToURL, completion: {(error, image) in
-    //                    if let error = error {
-    //                        print("venueCell = error processing image: \(error.localizedDescription)")
-    //                    } else if let image = image {
-    //                        DispatchQueue.main.async {
-    //                            self.venueImageView.image = image
-    //                        }
-    //                    }
-    //                })
-    //            }
-    //        } else {
-    //            venueImageView.image = UIImage(named:"placeholder-image")
-    //        }
+    public func configureCell(venue: Venue, venueImageAPIClient: VenueImageAPIClient) {
+        nameLabel.text = venue.name
+        self.venueImageAPIClient = venueImageAPIClient
+        self.venueImageAPIClient.delegate = self
+        self.venueImageAPIClient.getVenueImage(with: venue.id)
+
         }
+}
+
+extension VenueTableViewCell: VenueImageAPIClientDelegate {
+    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?) {
+        venueImageView.kf.indicatorType = .activity
+        venueImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+        }
+    }
+    
+    
 }

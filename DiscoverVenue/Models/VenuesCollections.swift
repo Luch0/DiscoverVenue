@@ -14,6 +14,7 @@ struct VenuesCollections: Codable {
 }
 
 struct SavedVenue: Codable {
+    let id: String
     let venue: Venue
     let tip: String
     let imageURL: String
