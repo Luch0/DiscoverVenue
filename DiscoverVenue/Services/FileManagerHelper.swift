@@ -65,13 +65,13 @@ class FileManagerHelper {
     // 1. stores tip in documents folder
     // 2. appends favorite item to array
     //    func addToSaved(venue: Venue?, andTip: String, collectionID: Int, collectionName: String) -> Bool  {
-    func addToSaved(venue: VenuesCollections) -> Bool  {
+    func addToSaved(collections: VenuesCollections) -> Bool  {
         //TODO: how to tag collections id or name?
         // checking for uniqueness
         //        let indexExist = venuesCollections[collectionID].savedVenues.index{$0.venue.id == venue.id}
         //        if indexExist != nil { print("Venue already in collection"); return false }
         //saving user input collection name and tip
-        venuesCollections.append(venue)
+        venuesCollections.append(collections)
         print(venuesCollections)
         return true
     }
@@ -81,5 +81,32 @@ class FileManagerHelper {
     
     public func getVenuesCollections() -> [VenuesCollections] {
         return venuesCollections
+    }
+    
+    
+//    func isVenueInCollection(venue: VenuesCollections) -> Bool {
+//        // checking for uniqueness
+//        let indexExist = venuesCollections[0].savedVenues.index{ $0.id == venue.id}
+//        if indexExist != nil {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+    
+    func removeCollection(fromIndex index: Int, and venue: SavedVenue) -> Bool {
+        venuesCollections.remove(at: index)
+        // remove collection
+        let imageURL = FileManagerHelper.manager.dataFilePath(withPathName: venue.id)
+        do {
+            try FileManager.default.removeItem(at: imageURL)
+            print("\n==============================================================================")
+            print("\(imageURL) removed")
+            print("==============================================================================\n")
+            return true
+        } catch {
+            print("error removing: \(error.localizedDescription)")
+            return false
+        }
     }
 }

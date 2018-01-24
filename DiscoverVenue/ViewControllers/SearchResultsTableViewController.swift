@@ -11,7 +11,7 @@ import GameplayKit
 class SearchResultsTableViewController: UIViewController {
     
     let venueView = SearchResultsTableView()
-    var venues = [Venue]()
+    var tableViewVenues = [Venue]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +23,17 @@ class SearchResultsTableViewController: UIViewController {
         venueView.tableView.delegate = self
     }
     
+    init(venues: [Venue]) {
+        super.init(nibName: nil, bundle: nil)
+        self.tableViewVenues = venues
+        
+//        venueView.configureDetailView(fellow: fellow, image: image)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private func configureNavBar() {
         navigationItem.title = "Result List"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -32,7 +43,7 @@ class SearchResultsTableViewController: UIViewController {
 
 extension SearchResultsTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return tableViewVenues.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,8 +51,11 @@ extension SearchResultsTableViewController: UITableViewDataSource {
         //        TODO: we will be passing a venue Object here
 //                    let venue = venues[indexPath.row]
 //                    cell.congfigureCell(venue: venue)
-        cell.nameLabel.text = "Hello"
-        cell.venueImageView.image = #imageLiteral(resourceName: "placeholderImage")
+        let selectedVenue = tableViewVenues[indexPath.row]
+        //cell.nameLabel.text = selectedVenue.name
+        let venueImageAPIClient = VenueImageAPIClient()
+        cell.configureCell(venue: selectedVenue, venueImageAPIClient: venueImageAPIClient)
+        //cell.venueImageView.image = #imageLiteral(resourceName: "placeholderImage")
         return cell
     }
 }
