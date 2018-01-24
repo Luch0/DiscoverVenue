@@ -8,8 +8,11 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 class VenueCollectionViewCell: UICollectionViewCell {
+    
+    private var venueImageAPIClient: VenueImageAPIClient!
     
     lazy var venueImageView: UIImageView = {
         let imageView = UIImageView()
@@ -45,5 +48,20 @@ class VenueCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    public func configureVenueCell(venue: Venue, venueImageAPIClient : VenueImageAPIClient) {
+        self.venueImageAPIClient = venueImageAPIClient
+        self.venueImageAPIClient.delegate = self
+        self.venueImageAPIClient.getVenueImage(with: venue.id)
+    }
+    
 }
 
+extension VenueCollectionViewCell: VenueImageAPIClientDelegate {
+    
+    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?) {
+        venueImageView.kf.indicatorType = .activity
+        venueImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+        }
+    }
+
+}
