@@ -7,38 +7,46 @@
 //
 
 import Foundation
+import Alamofire
 
-struct VenueImageAPIClient {
-    
-    private init() {}
-    static let manager = VenueImageAPIClient()
+
+protocol VenueImageAPIClientDelegate: class {
+    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?)
+}
+
+class VenueImageAPIClient {
     
     let clientID = "AVBMS5AZM4ZURJ4EBSHNWD1EUTEW4JWVGK5ZBBBM3IBZ302N"
     let clientSecret = "HG50R3IBLNM4VJ0TN3AX0QQSNHCXB452JS0BXE21LPVVFA3D"
     let version = "20180117"
-    let endpointUrlStr = "https://api.foursquare.com/v2/venues/"
     
-    func getVenueImage(with venueID: String, completionHandler: @escaping (VenueImage) -> Void, errorHandler: @escaping (Error) -> Void) {
-        let fullUrl = "\(endpointUrlStr)\(venueID)/photos?client_id=\(clientID)&&client_secret=\(clientSecret)&v=\(version)"
-        guard let url = URL(string: fullUrl) else {
-            errorHandler(AppError.badURL(str: fullUrl))
-            return
-        }
-        let urlRequest = URLRequest(url: url)
-        let completion: (Data) -> Void = {(data: Data) in
-            do {
-                let venueImagesResponse = try JSONDecoder().decode(ImagesResponse.self, from: data)
-                if venueImagesResponse.response.photos.count == 0 {
-                    errorHandler(AppError.noImages)
-                    return
+    weak var delegate: VenueImageAPIClientDelegate?
+    
+    func getVenueImage(with venueID: String) {
+        
+        let params: [String: Any] = ["client_id"     : clientID,
+                                     "client_secret" : clientSecret,
+                                     "v"             : version]
+        let foursquareImageBaseURL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?"
+        
+        Alamofire.request(foursquareImageBaseURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData{ (dataResponse) in
+            if let error = dataResponse.error {
+                print("data response error: \(error.localizedDescription)")
+            } else if let data = dataResponse.data {
+                do {
+                    let venueImagesResponse = try JSONDecoder().decode(ImagesResponse.self, from: data)
+                    if venueImagesResponse.response.photos.count == 0 {
+                        self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: nil)
+                        return
+                    }
+                    let venueImage = venueImagesResponse.response.photos.items[0]
+                    self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: URL(string: "\(venueImage.prefix)300x300\(venueImage.suffix)"))
+                } catch {
+                    print("decoding error: \(error)")
                 }
-                completionHandler(venueImagesResponse.response.photos.items[0])
-            }
-            catch {
-                errorHandler(AppError.couldNotParseJSON(rawError: error))
             }
         }
-        NetworkHelper.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
+        
     }
     
 }
