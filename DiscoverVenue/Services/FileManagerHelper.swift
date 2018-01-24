@@ -65,13 +65,13 @@ class FileManagerHelper {
     // 1. stores tip in documents folder
     // 2. appends favorite item to array
     //    func addToSaved(venue: Venue?, andTip: String, collectionID: Int, collectionName: String) -> Bool  {
-    func addToSaved(collections: VenuesCollections) -> Bool  {
+    func addToSaved(venue: VenuesCollections) -> Bool  {
         //TODO: how to tag collections id or name?
         // checking for uniqueness
-        //        let indexExist = venuesCollections[collectionID].savedVenues.index{$0.venue.id == venue.id}
-        //        if indexExist != nil { print("Venue already in collection"); return false }
+//                let indexExist = venuesCollections[collectionID].savedVenues.index{$0.venue.id == venue.id}
+//                if indexExist != nil { print("Venue already in collection"); return false }
         //saving user input collection name and tip
-        venuesCollections.append(collections)
+        venuesCollections.append(venue)
         print(venuesCollections)
         return true
     }
