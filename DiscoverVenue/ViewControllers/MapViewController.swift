@@ -58,6 +58,17 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(mapView)
         view.addSubview(launchScreen)
+        
+        navigationController?.navigationBar.alpha = 0.0
+        tabBarController?.tabBar.alpha = 0.0
+        
+        UIView.animate(withDuration: 3.0, delay: 3.0, animations: {
+            
+            self.navigationController?.navigationBar.alpha = 1.0
+            self.tabBarController?.tabBar.alpha = 1.0
+            
+        })
+        
         launchScreen.delegate = self
         if let lastSearchedVenue = UserDefaultsHelper.manager.getLastSearchedVenue() {
             mapView.venueSearchbBar.placeholder = lastSearchedVenue
