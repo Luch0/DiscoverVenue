@@ -15,6 +15,8 @@ class MapViewController: UIViewController {
     
     private let cellSpacing: CGFloat = 5.0
     
+    private var firstTime = true // only zoom in to location at app start
+    
     var venues = [Venue]() {
         didSet {
             mapView.venuesCollectionView.reloadData()
@@ -148,9 +150,12 @@ extension MapViewController: VenueAPIClientDelegate {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        mapView.setRegion(region, animated: true)
+        if firstTime {
+            let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
+            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            mapView.setRegion(region, animated: true)
+            firstTime = false
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
