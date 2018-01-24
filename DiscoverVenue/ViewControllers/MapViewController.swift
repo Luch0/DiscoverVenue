@@ -115,7 +115,7 @@ class MapViewController: UIViewController {
     
     @objc func showVenuesTableView() {
         // TODO: pass venues data to SearchResultsTableViewController
-        let tableViewResults = SearchResultsTableViewController()
+        let tableViewResults = SearchResultsTableViewController(venues: venues)
         self.navigationController?.pushViewController(tableViewResults, animated: true)
     }
     
