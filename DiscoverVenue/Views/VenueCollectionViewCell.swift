@@ -51,16 +51,29 @@ class VenueCollectionViewCell: UICollectionViewCell {
     public func configureVenueCell(venue: Venue, venueImageAPIClient : VenueImageAPIClient) {
         self.venueImageAPIClient = venueImageAPIClient
         self.venueImageAPIClient.delegate = self
-        self.venueImageAPIClient.getVenueImage(with: venue.id)
+        self.venueImageAPIClient.getVenueImage(with: venue)
     }
     
 }
 
 extension VenueCollectionViewCell: VenueImageAPIClientDelegate {
     
-    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?) {
+    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue, image: UIImage?) {
         venueImageView.kf.indicatorType = .activity
+        
+        if image != nil {
+            venueImageView.image = image
+            return
+        }
+        
+        guard let url = url else {
+            venueImageView.image = #imageLiteral(resourceName: "placeholder")
+            return
+        }
+        
         venueImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+            guard let image = image else { return }
+            NSCacheHelper.manager.addImage(with: venue.id, and: image)
         }
     }
 
