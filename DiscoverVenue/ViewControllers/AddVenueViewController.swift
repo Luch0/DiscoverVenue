@@ -29,6 +29,8 @@ class AddVenueViewController: UIViewController {
         configureNavBar()
         addVenueView.collectionView.dataSource = self
         addVenueView.collectionView.delegate = self
+        addVenueView.collectionTextField.delegate = self
+        addVenueView.tipTextField.delegate = self
     }
 
     
@@ -58,7 +60,7 @@ class AddVenueViewController: UIViewController {
             
         }
         
-        let alert = UIAlertController(title: "Saved to Collection", message: "(venue) was saved to (collection title)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Saved to Collection", message: "\(oneVenue.name) was saved to \(addVenueView.collectionTextField.text!)", preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) -> Void in self.dismiss(animated: true, completion: nil)})
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
@@ -83,7 +85,7 @@ extension AddVenueViewController: UICollectionViewDelegate {
             FileManagerHelper.manager.saveImage(with: oneVenue.id, image: oneImage)
             FileManagerHelper.manager.addVenueToAnExistingCollection(index: indexPath.row, venueToSave: savedVenue)
             
-            let alert = UIAlertController(title: "Saved to Collection", message: "(venue) was saved to (collection title)", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Saved to Collection", message: "\(oneVenue.name) was saved to \(FileManagerHelper.manager.getVenuesCollectionsArr()[indexPath.row].collectionName)", preferredStyle: .alert)
             let ok = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) -> Void in self.dismiss(animated: true, completion: nil)})
             alert.addAction(ok)
             present(alert, animated: true, completion: nil)
@@ -105,6 +107,7 @@ extension AddVenueViewController: UICollectionViewDataSource {
         //cell.spinner.isHidden = false
         //cell.spinner.startAnimating()
         
+        cell.plusSignImageView.isHidden = false
         
         if let id =  FileManagerHelper.manager.getVenuesCollectionsArr()[indexPath.row].savedVenues.first?.id {
             
@@ -143,5 +146,13 @@ extension AddVenueViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
+    }
+}
+
+extension AddVenueViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
     }
 }
