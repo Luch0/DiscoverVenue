@@ -26,7 +26,7 @@ class UserCreatedCollectionsViewController: UIViewController {
         setUpView()
     }
     
-    func setUpView() {
+    private func setUpView() {
         view.backgroundColor = .purple
         navigationItem.title = "My Collections"
         
