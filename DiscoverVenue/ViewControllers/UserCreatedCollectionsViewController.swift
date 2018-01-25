@@ -89,7 +89,7 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         present(mSVVCinNavCon, animated: true, completion: nil)
         
         //func to configure view on VC
-        modalSavedVenuesVC.configureSavedVenueVC(testArray: aSpecificCollection)
+        modalSavedVenuesVC.configureSavedVenueVC(aSpecificCollection: aSpecificCollection)
         
     }
     

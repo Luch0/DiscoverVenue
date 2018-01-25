@@ -14,6 +14,7 @@
 		DB695DDC201929060070F670 /* LaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB695DDB201929060070F670 /* LaunchScreen.swift */; };
 		DB9FFD5B2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9FFD5A2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift */; };
 		DBBDD47A201690E900A8C886 /* ModalSavedVenuesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBBDD479201690E900A8C886 /* ModalSavedVenuesView.swift */; };
+		DBF5BAB7201A673200710086 /* NSCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF5BAB6201A673100710086 /* NSCacheHelper.swift */; };
 		E209E8272012DA2E00A1372C /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E8262012DA2E00A1372C /* NetworkHelper.swift */; };
 		E209E8292012DA3A00A1372C /* VenueAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E8282012DA3A00A1372C /* VenueAPIClient.swift */; };
 		E209E82D2012DA7700A1372C /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E209E82C2012DA7700A1372C /* Venue.swift */; };
@@ -51,6 +52,7 @@
 		DB695DDB201929060070F670 /* LaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreen.swift; sourceTree = "<group>"; };
 		DB9FFD5A2013F7BC00769FCA /* CollectionsCustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBBDD479201690E900A8C886 /* ModalSavedVenuesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalSavedVenuesView.swift; sourceTree = "<group>"; };
+		DBF5BAB6201A673100710086 /* NSCacheHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCacheHelper.swift; sourceTree = "<group>"; };
 		E209E8262012DA2E00A1372C /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		E209E8282012DA3A00A1372C /* VenueAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueAPIClient.swift; sourceTree = "<group>"; };
 		E209E82C2012DA7700A1372C /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				DB2D234F2018EA900069BEDE /* UserDefaultsHelper.swift */,
 				E209E8262012DA2E00A1372C /* NetworkHelper.swift */,
+				DBF5BAB6201A673100710086 /* NSCacheHelper.swift */,
 				DB695DD7201928A60070F670 /* FileManagerHelper.swift */,
 				E2D509322012FE9E00A0A269 /* ImageAPIClient.swift */,
 				E2D509342012FED100A0A269 /* VenueImageAPIClient.swift */,
@@ -369,6 +372,7 @@
 				E209E8382012DB2300A1372C /* SearchResultsTableViewController.swift in Sources */,
 				E209E83A2012DB4000A1372C /* UserCreatedCollectionsViewController.swift in Sources */,
 				E209E8292012DA3A00A1372C /* VenueAPIClient.swift in Sources */,
+				DBF5BAB7201A673200710086 /* NSCacheHelper.swift in Sources */,
 				E23BF38A2012B7B400278589 /* AppDelegate.swift in Sources */,
 				DB695DDC201929060070F670 /* LaunchScreen.swift in Sources */,
 				E22CE3C020166E1F0011F35C /* ModalSavedVenuesViewController.swift in Sources */,

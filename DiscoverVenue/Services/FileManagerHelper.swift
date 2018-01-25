@@ -53,7 +53,7 @@ class FileManagerHelper {
     
     
     //    load from documents directory
-    func load() {
+    func loadFromDisk() {
         let path = dataFilePath(withPathName: FileManagerHelper.kPathname)
         let decoder = PropertyListDecoder()
         do {
