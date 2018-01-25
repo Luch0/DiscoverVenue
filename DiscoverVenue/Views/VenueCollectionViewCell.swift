@@ -58,31 +58,22 @@ class VenueCollectionViewCell: UICollectionViewCell {
 
 extension VenueCollectionViewCell: VenueImageAPIClientDelegate {
     
-    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue) {
+    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue, image: UIImage?) {
         venueImageView.kf.indicatorType = .activity
+        
+        if image != nil {
+            venueImageView.image = image
+            return
+        }
+        
         guard let url = url else {
             venueImageView.image = #imageLiteral(resourceName: "placeholder")
             return
         }
         
-//        if ImageCache.default.imageCachedType(forKey: venue.id).cached {
-//            ImageCache.default.retrieveImage(forKey: venue.id, options: nil) {
-//                image, cacheType in
-//                if let image = image {
-//                    print("Get image \(image), cacheType: \(cacheType). IN VENUES COLLECTION")
-//                    //In this code snippet, the `cacheType` is .disk
-//                    self.venueImageView.image = image
-//                } else {
-//                    print("Not exist in cache.")
-//                }
-//            }
-//        }
-        
-        
-        
-        
-        //let resource = ImageResource(downloadURL: url, cacheKey: "\(venue.id)")
         venueImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder"), options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+            guard let image = image else { return }
+            NSCacheHelper.manager.addImage(with: venue.id, and: image)
         }
     }
 
