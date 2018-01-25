@@ -85,7 +85,8 @@ extension SearchResultsTableViewController: UITableViewDelegate {
 //        let navController = UINavigationController(rootViewController:SRDVC)
 //        SRDVC.modalTransitionStyle = .crossDissolve
 //        SRDVC.modalPresentationStyle = .currentContext
-        let SRDVC = SearchResultDetailViewController()
+        guard let image = cell.venueImageView.image else { return }
+        let SRDVC = SearchResultDetailViewController(venue: tableViewVenues[indexPath.row], image: image)
         self.navigationController?.pushViewController(SRDVC, animated: true)
         
     }
