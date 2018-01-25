@@ -121,6 +121,7 @@ class VenueTableViewCell: UITableViewCell {
         nameLabel.text = venue.name
         self.venueImageAPIClient = venueImageAPIClient
         self.venueImageAPIClient.delegate = self
+        self.venueImageView.kf.indicatorType = .activity
         self.venueImageAPIClient.getVenueImage(with: venue)
 
     }
@@ -128,7 +129,6 @@ class VenueTableViewCell: UITableViewCell {
 
 extension VenueTableViewCell: VenueImageAPIClientDelegate {
     func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue, image: UIImage?) {
-        venueImageView.kf.indicatorType = .activity
         
         if image != nil {
             venueImageView.image = image
