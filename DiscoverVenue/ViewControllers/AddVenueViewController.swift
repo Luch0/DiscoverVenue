@@ -15,6 +15,12 @@ class AddVenueViewController: UIViewController {
     
     let addVenueView = AddVenueView()
     
+    var oneVenue: Venue!
+    
+    func venueToSendToDVC(venue: Venue) {
+        self.oneVenue = venue
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(addVenueView)
@@ -22,6 +28,7 @@ class AddVenueViewController: UIViewController {
         addVenueView.collectionView.dataSource = self
         addVenueView.collectionView.delegate = self
     }
+
     
     private func configureNavBar() {
         let xBarItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(xButton))
@@ -34,16 +41,17 @@ class AddVenueViewController: UIViewController {
         
     }
     
-    @objc func xButton() {
+    @objc private func xButton() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func createButton() {
+    @objc private func createButton() {
         let alert = UIAlertController(title: "Saved to Collection", message: "(venue) was saved to (collection title)", preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
         //TODO: Add creating/saving functionality
+       
     }
     
     //TODO: modal vc but tab bar controller is not underneath

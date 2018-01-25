@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarController.viewControllers = [mapViewNavCon, userCreatedCollectionsNavCon]
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
-        
+        FileManagerHelper.manager.loadFromDisk()
         return true
     }
 

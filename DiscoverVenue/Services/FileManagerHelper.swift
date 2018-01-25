@@ -21,17 +21,17 @@ class FileManagerHelper {
             saveToPhoneDisk()
         }
     }
-        // returns documents directory path for app sandbox
-        func documentsDirectory() -> URL {
+    // returns documents directory path for app sandbox
+    func documentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
-        }
-        
-        // /documents/Favorites.plist
-        // returns the path for supplied name from the dcouments directory
-        func dataFilePath(withPathName path: String) -> URL {
+    }
+    
+    // /documents/Favorites.plist
+    // returns the path for supplied name from the dcouments directory
+    func dataFilePath(withPathName path: String) -> URL {
         return FileManagerHelper.manager.documentsDirectory().appendingPathComponent(path)
-        }
+    }
     
     // save to documents directory
     // write to path: /Documents/
@@ -52,8 +52,8 @@ class FileManagerHelper {
     
     
     
-//    load from documents directory
-    func load() {
+    //    load from documents directory
+    func loadFromDisk() {
         let path = dataFilePath(withPathName: FileManagerHelper.kPathname)
         let decoder = PropertyListDecoder()
         do {
@@ -72,7 +72,7 @@ class FileManagerHelper {
         return true
     }
     
-//     This adds a Venue to the Array inside of a VenueCollection
+    //     This adds a Venue to the Array inside of a VenueCollection
     func addVenueToACollection(collectionName: String?, venueToSave: SavedVenue, and tip: String?) {
         for theSavedVenues in venuesCollectionsArr {
             if collectionName == theSavedVenues.collectionName {
@@ -83,7 +83,7 @@ class FileManagerHelper {
         }
     }
     
-
+    
     
     
     //read
@@ -92,7 +92,7 @@ class FileManagerHelper {
         return venuesCollectionsArr
     }
     
-//    this func gets the venues insides a collection
+    //    this func gets the venues insides a collection
     func getVenuesInACollection(collectionName: String) -> [SavedVenue] {
         var arrToReturn = [SavedVenue]()
         for savedVenues in venuesCollectionsArr {
@@ -104,7 +104,7 @@ class FileManagerHelper {
     }
     
     
-//    function to remove a venue from a collection
+    //    function to remove a venue from a collection
     func removeAVenue(with venueID: String) {
         for venueCollection in venuesCollectionsArr {
             var indexTracker = -1
@@ -123,19 +123,19 @@ class FileManagerHelper {
     }
     
     
-
     
     
     
-//    func isVenueInCollection(venue: VenuesCollections) -> Bool {
-//        // checking for uniqueness
-//        let indexExist = venuesCollections[0].savedVenues.index{ $0.id == venue.id}
-//        if indexExist != nil {
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
+    
+    //    func isVenueInCollection(venue: VenuesCollections) -> Bool {
+    //        // checking for uniqueness
+    //        let indexExist = venuesCollections[0].savedVenues.index{ $0.id == venue.id}
+    //        if indexExist != nil {
+    //            return true
+    //        } else {
+    //            return false
+    //        }
+    //    }
     
     func removeCollection(fromIndex index: Int, and venue: SavedVenue) -> Bool {
         venuesCollectionsArr.remove(at: index)
@@ -153,8 +153,8 @@ class FileManagerHelper {
         }
     }
     
-
     
-   
+    
+    
     
 }
