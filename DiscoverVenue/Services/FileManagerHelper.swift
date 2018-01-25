@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FileManagerHelper {
     
@@ -165,7 +166,32 @@ class FileManagerHelper {
         }
     }
     
+    //Saving Images To sandbox
+    public func saveImage(with urlStr: String, image: UIImage) {
+        let imageData = UIImagePNGRepresentation(image)
+        let imagePathName = urlStr.components(separatedBy: "/").last!
+        let url = dataFilePath(withPathName: imagePathName)
+        do {
+            try imageData?.write(to: url)
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+    }
     
+    //Getting images from sandbox
+    public func getImage(with urlStr: String) -> UIImage? {
+        do {
+            let imagePathName = urlStr.components(separatedBy: "/").last!
+            let url = dataFilePath(withPathName: imagePathName)
+            let data = try Data(contentsOf: url)
+            return UIImage(data: data)
+        }
+        catch {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
     
     
     
