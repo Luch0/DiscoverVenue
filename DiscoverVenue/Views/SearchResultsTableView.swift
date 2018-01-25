@@ -39,7 +39,7 @@ class SearchResultsTableView: UIView {
     private func setupTableView() {
         addSubview(tableView)
         tableView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+            make.top.equalTo(self.snp.top)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
