@@ -112,13 +112,19 @@ extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
         //cell.spinner.startAnimating()
         cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
         
-//        if aCollection.savedVenues[0].imageURL == nil {
+        if let latestVenue = aCollection.savedVenues.last {
+            cell.collectionImageView.image = FileManagerHelper.manager.getImage(with: latestVenue.id)
+        } else {
+            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
+        }
+        
+//        if aCollection.savedVenues[0].imageURL != nil {
 //            //set image based of name.savedVenues[0].imageURL here
 //            //cell.collectionImageView.image = name.savedVenues[0].imageURL
 //        } else {
 //            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
 //        }
-        cell.collectionNameLabel.text = "\(aCollection.collectionName)"
+//        cell.collectionNameLabel.text = "\(aCollection.collectionName)"
         
         
         return cell
