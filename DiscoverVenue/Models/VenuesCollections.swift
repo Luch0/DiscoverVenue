@@ -9,13 +9,13 @@
 import Foundation
 
 struct VenuesCollections: Codable {
-    let collectionName: String
-    let savedVenues: [SavedVenue]
+    var collectionName: String
+    var savedVenues: [SavedVenue]
 }
 
 struct SavedVenue: Codable {
-    let id: String
+    var id: String
     let venue: Venue
-    let tip: String
-    let imageURL: String
+    var tip: String?
+    var imageURL: String
 }
