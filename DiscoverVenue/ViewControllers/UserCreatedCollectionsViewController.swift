@@ -25,13 +25,15 @@ class UserCreatedCollectionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
+        //venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        userCreatedCollectionsView.collectionView.reloadData()
         setUpView()
+        venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
     }
     
     private func setUpView() {
@@ -108,14 +110,21 @@ extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
         
         //cell.spinner.isHidden = false
         //cell.spinner.startAnimating()
+        cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
         
-        if aCollection.savedVenues[0].imageURL != nil {
-            //set image based of name.savedVenues[0].imageURL here
-            //cell.collectionImageView.image = name.savedVenues[0].imageURL
+        if let latestVenue = aCollection.savedVenues.last {
+            cell.collectionImageView.image = FileManagerHelper.manager.getImage(with: latestVenue.id)
         } else {
             cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
         }
-        cell.collectionNameLabel.text = "\(aCollection.collectionName)"
+        
+//        if aCollection.savedVenues[0].imageURL != nil {
+//            //set image based of name.savedVenues[0].imageURL here
+//            //cell.collectionImageView.image = name.savedVenues[0].imageURL
+//        } else {
+//            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
+//        }
+//        cell.collectionNameLabel.text = "\(aCollection.collectionName)"
         
         
         return cell
