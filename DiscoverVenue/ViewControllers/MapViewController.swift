@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     
     private var firstTime = true // only zoom in to location at app start
     
-    var venues = [Venue]() {
+    private var venues = [Venue]() {
         didSet {
             mapView.venuesCollectionView.reloadData()
             mapView.venuesCollectionView.setContentOffset(CGPoint.zero, animated: true)
@@ -27,7 +27,7 @@ class MapViewController: UIViewController {
     
     private var venueAnnotations = [MKAnnotation]()
     
-    func addVenueAnnotations() {
+    private func addVenueAnnotations() {
         for venue in venues {
             let venueLocation: CLLocation = CLLocation(latitude: venue.location.lat, longitude: venue.location.lng)
             let venueAnnotation = MKPointAnnotation()
@@ -40,7 +40,7 @@ class MapViewController: UIViewController {
         mapView.venuesMapView.showAnnotations(venueAnnotations, animated: true)
     }
     
-    let mapView = MapView()
+    private let mapView = MapView()
     
     private var venueAPIclient: VenueAPIClient!
     
@@ -54,7 +54,7 @@ class MapViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let launchScreen = LaunchScreen()
+    private let launchScreen = LaunchScreen()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +64,7 @@ class MapViewController: UIViewController {
         navigationController?.navigationBar.alpha = 0.0
         tabBarController?.tabBar.alpha = 0.0
         
-        UIView.animate(withDuration: 3.0, delay: 3.0, animations: {
+        UIView.animate(withDuration: 2.0, delay: 2.0, animations: {
             
             self.navigationController?.navigationBar.alpha = 1.0
             self.tabBarController?.tabBar.alpha = 1.0
@@ -104,7 +104,7 @@ class MapViewController: UIViewController {
         mapView.locationSearchBar.resignFirstResponder()
     }
     
-    func configureNavigationBar() {
+    private func configureNavigationBar() {
         guard let mapViewNavBar = navigationController else { return }
         mapViewNavBar.navigationBar.barTintColor = UIColor.groupTableViewBackground
         navigationItem.titleView = mapView.venueSearchbBar
@@ -113,7 +113,7 @@ class MapViewController: UIViewController {
         
     }
     
-    @objc func showVenuesTableView() {
+    @objc private func showVenuesTableView() {
         // TODO: pass venues data to SearchResultsTableViewController
         let tableViewResults = SearchResultsTableViewController(venues: venues)
         self.navigationController?.pushViewController(tableViewResults, animated: true)
@@ -268,7 +268,7 @@ extension MapViewController: UICollectionViewDelegateFlowLayout {
     
 }
 extension MapViewController: LaunchViewDelegate {
-    func animationEnded() {
+    public func animationEnded() {
         launchScreen.removeFromSuperview()
     }
     
