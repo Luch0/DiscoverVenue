@@ -11,6 +11,10 @@ import Foundation
 class VenuesCollections: Codable {
     var collectionName: String
     var savedVenues: [SavedVenue]
+    init(collection: String, savedVenues: [SavedVenue]) {
+        self.collectionName = collection
+        self.savedVenues = savedVenues
+    }
 }
 
 class SavedVenue: Codable {

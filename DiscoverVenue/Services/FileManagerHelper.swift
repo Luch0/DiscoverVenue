@@ -22,20 +22,20 @@ class FileManagerHelper {
         }
     }
     // returns documents directory path for app sandbox
-    func documentsDirectory() -> URL {
+    public func documentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
     
     // /documents/Favorites.plist
     // returns the path for supplied name from the dcouments directory
-    func dataFilePath(withPathName path: String) -> URL {
+    public func dataFilePath(withPathName path: String) -> URL {
         return FileManagerHelper.manager.documentsDirectory().appendingPathComponent(path)
     }
     
     // save to documents directory
     // write to path: /Documents/
-    func saveToPhoneDisk() {
+    public func saveToPhoneDisk() {
         let encoder = PropertyListEncoder()
         do {
             let data = try encoder.encode(venuesCollectionsArr)
@@ -53,7 +53,7 @@ class FileManagerHelper {
     
     
     //    load from documents directory
-    func loadFromDisk() {
+    public func loadFromDisk() {
         let path = dataFilePath(withPathName: FileManagerHelper.kPathname)
         let decoder = PropertyListDecoder()
         do {
@@ -66,14 +66,20 @@ class FileManagerHelper {
     
     
     // This adds a VenueCollection to our array of VenueCollections
-    func add(venueCollection: VenuesCollections) -> Bool {
+    public func addAVenueCollection(venueCollection: VenuesCollections) -> Bool {
         venuesCollectionsArr.append(venueCollection)
         print(venuesCollectionsArr)
         return true
     }
     
     //     This adds a Venue to the Array inside of a VenueCollection
-    func addVenueToACollection(collectionName: String?, venueToSave: SavedVenue, and tip: String?) {
+    public func addVenueToANewCollection(collectionName: String, venueToSave: SavedVenue, and tip: String?) {
+        
+        //Make the new collection
+        var newCollection: VenuesCollections
+        newCollection.collectionName = collectionName
+        venuesCollectionsArr.append(newCollection)
+        
         for theSavedVenues in venuesCollectionsArr {
             if collectionName == theSavedVenues.collectionName {
                 let copyOfVenue = venueToSave
@@ -83,17 +89,17 @@ class FileManagerHelper {
         }
     }
     
+    // This adds the venue to an existing collection when the user clicks the collection cell in the addVenueView
+    // Something with indexpath
     
     
-    
-    //read
     
     public func getVenuesCollectionsArr() -> [VenuesCollections] {
         return venuesCollectionsArr
     }
     
     //    this func gets the venues insides a collection
-    func getVenuesInACollection(collectionName: String) -> [SavedVenue] {
+    public func getVenuesInACollection(collectionName: String) -> [SavedVenue] {
         var arrToReturn = [SavedVenue]()
         for savedVenues in venuesCollectionsArr {
             if collectionName == savedVenues.collectionName {
@@ -105,7 +111,7 @@ class FileManagerHelper {
     
     
     //    function to remove a venue from a collection
-    func removeAVenue(with venueID: String) {
+    public func removeAVenue(with venueID: String) {
         for venueCollection in venuesCollectionsArr {
             var indexTracker = -1
             for aVenue in venueCollection.savedVenues {
@@ -118,7 +124,7 @@ class FileManagerHelper {
         }
     }
     
-    func eraseSaves(){
+    public func eraseSaves(){
         venuesCollectionsArr = []
     }
     
@@ -137,7 +143,7 @@ class FileManagerHelper {
     //        }
     //    }
     
-    func removeCollection(fromIndex index: Int, and venue: SavedVenue) -> Bool {
+    public func removeCollection(fromIndex index: Int, and venue: SavedVenue) -> Bool {
         venuesCollectionsArr.remove(at: index)
         // remove collection
         let imageURL = FileManagerHelper.manager.dataFilePath(withPathName: venue.id)
