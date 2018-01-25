@@ -11,7 +11,7 @@ import Alamofire
 
 
 protocol VenueImageAPIClientDelegate: class {
-    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?)
+    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue)
 }
 
 class VenueImageAPIClient {
@@ -32,12 +32,12 @@ class VenueImageAPIClient {
     
     weak var delegate: VenueImageAPIClientDelegate?
     
-    func getVenueImage(with venueID: String) {
+    func getVenueImage(with venue: Venue) {
         
         let params: [String: Any] = ["client_id"     : clientID,
                                      "client_secret" : clientSecret,
                                      "v"             : version]
-        let foursquareImageBaseURL = "https://api.foursquare.com/v2/venues/\(venueID)/photos?"
+        let foursquareImageBaseURL = "https://api.foursquare.com/v2/venues/\(venue.id)/photos?"
         
         Alamofire.request(foursquareImageBaseURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData{ (dataResponse) in
             if let error = dataResponse.error {
@@ -46,11 +46,11 @@ class VenueImageAPIClient {
                 do {
                     let venueImagesResponse = try JSONDecoder().decode(ImagesResponse.self, from: data)
                     if venueImagesResponse.response.photos.count == 0 {
-                        self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: nil)
+                        self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: nil, venue: venue)
                         return
                     }
                     let venueImage = venueImagesResponse.response.photos.items[0]
-                    self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: URL(string: "\(venueImage.prefix)300x300\(venueImage.suffix)"))
+                    self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: URL(string: "\(venueImage.prefix)300x300\(venueImage.suffix)"), venue: venue)
                 } catch {
                     print("decoding error: \(error)")
                 }
