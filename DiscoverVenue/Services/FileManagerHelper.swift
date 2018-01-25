@@ -16,9 +16,9 @@ class FileManagerHelper {
     private init(){}
     static let manager = FileManagerHelper()
     
-    private var venuesCollections = [VenuesCollections]() {
+    private var venuesCollectionsArr = [VenuesCollections]() {
         didSet{
-            saveToDisk()
+            saveToPhoneDisk()
         }
     }
         // returns documents directory path for app sandbox
@@ -35,10 +35,10 @@ class FileManagerHelper {
     
     // save to documents directory
     // write to path: /Documents/
-    func saveToDisk() {
+    func saveToPhoneDisk() {
         let encoder = PropertyListEncoder()
         do {
-            let data = try encoder.encode(venuesCollections)
+            let data = try encoder.encode(venuesCollectionsArr)
             // Does the writing to disk
             try data.write(to: dataFilePath(withPathName: FileManagerHelper.kPathname), options: .atomic)
         } catch {
@@ -49,39 +49,82 @@ class FileManagerHelper {
         print("===================================================\n")
     }
     
+    
+    
+    
 //    load from documents directory
     func load() {
         let path = dataFilePath(withPathName: FileManagerHelper.kPathname)
         let decoder = PropertyListDecoder()
         do {
             let data = try Data.init(contentsOf: path)
-            venuesCollections = try decoder.decode([VenuesCollections].self, from: data)
+            venuesCollectionsArr = try decoder.decode([VenuesCollections].self, from: data)
         } catch {
             print("decoding error: \(error.localizedDescription)")
         }
     }
     
-    // does 2 tasks:
-    // 1. stores tip in documents folder
-    // 2. appends favorite item to array
-    //    func addToSaved(venue: Venue?, andTip: String, collectionID: Int, collectionName: String) -> Bool  {
-    func addToSaved(collections: VenuesCollections) -> Bool  {
-        //TODO: how to tag collections id or name?
-        // checking for uniqueness
-        //        let indexExist = venuesCollections[collectionID].savedVenues.index{$0.venue.id == venue.id}
-        //        if indexExist != nil { print("Venue already in collection"); return false }
-        //saving user input collection name and tip
-        venuesCollections.append(collections)
-        print(venuesCollections)
+    
+    // This adds a VenueCollection to our array of VenueCollections
+    func add(venueCollection: VenuesCollections) -> Bool {
+        venuesCollectionsArr.append(venueCollection)
+        print(venuesCollectionsArr)
         return true
     }
+    
+//     This adds a Venue to the Array inside of a VenueCollection
+    func addVenueToACollection(collectionName: String?, venueToSave: SavedVenue, and tip: String?) {
+        for theSavedVenues in venuesCollectionsArr {
+            if collectionName == theSavedVenues.collectionName {
+                let copyOfVenue = venueToSave
+                copyOfVenue.tip = tip
+                theSavedVenues.savedVenues.append(copyOfVenue)
+            }
+        }
+    }
+    
+
     
     
     //read
     
-    public func getVenuesCollections() -> [VenuesCollections] {
-        return venuesCollections
+    public func getVenuesCollectionsArr() -> [VenuesCollections] {
+        return venuesCollectionsArr
     }
+    
+//    this func gets the venues insides a collection
+    func getVenuesInACollection(collectionName: String) -> [SavedVenue] {
+        var arrToReturn = [SavedVenue]()
+        for savedVenues in venuesCollectionsArr {
+            if collectionName == savedVenues.collectionName {
+                arrToReturn = savedVenues.savedVenues
+            }
+        }
+        return arrToReturn
+    }
+    
+    
+//    function to remove a venue from a collection
+    func removeAVenue(with venueID: String) {
+        for venueCollection in venuesCollectionsArr {
+            var indexTracker = -1
+            for aVenue in venueCollection.savedVenues {
+                indexTracker += 1
+                if aVenue.id == venueID {
+                    venueCollection.savedVenues.remove(at: indexTracker)
+                    indexTracker -= 1 // If it removes a value, the next value in the array will be at the same index as the removed value. So we need to push the indexTracker back one index to match the shift in the array
+                }
+            }
+        }
+    }
+    
+    func eraseSaves(){
+        venuesCollectionsArr = []
+    }
+    
+    
+
+    
     
     
 //    func isVenueInCollection(venue: VenuesCollections) -> Bool {
@@ -95,7 +138,7 @@ class FileManagerHelper {
 //    }
     
     func removeCollection(fromIndex index: Int, and venue: SavedVenue) -> Bool {
-        venuesCollections.remove(at: index)
+        venuesCollectionsArr.remove(at: index)
         // remove collection
         let imageURL = FileManagerHelper.manager.dataFilePath(withPathName: venue.id)
         do {
@@ -109,4 +152,9 @@ class FileManagerHelper {
             return false
         }
     }
+    
+
+    
+   
+    
 }
