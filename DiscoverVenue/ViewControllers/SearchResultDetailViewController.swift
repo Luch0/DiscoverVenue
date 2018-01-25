@@ -11,13 +11,29 @@ class SearchResultDetailViewController: UIViewController {
     
     let myView = SearchResultDetailView()
     
-    //let aVenue : Venue!
+    var venue: Venue!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
         view.backgroundColor = .yellow
         view.addSubview(myView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // prevent from navbar to grow large
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    init(venue: Venue, image: UIImage) {
+        super.init(nibName: nil, bundle: nil)
+        self.venue = venue
+        myView.configureDetails(venue: venue, image: image)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func configureNavBar() {

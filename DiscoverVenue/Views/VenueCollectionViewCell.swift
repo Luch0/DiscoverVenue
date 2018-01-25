@@ -16,7 +16,7 @@ class VenueCollectionViewCell: UICollectionViewCell {
     
     lazy var venueImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "placeholder")
+        // imageView.image = #imageLiteral(resourceName: "placeholder")
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -51,6 +51,7 @@ class VenueCollectionViewCell: UICollectionViewCell {
     public func configureVenueCell(venue: Venue, venueImageAPIClient : VenueImageAPIClient) {
         self.venueImageAPIClient = venueImageAPIClient
         self.venueImageAPIClient.delegate = self
+        self.venueImageView.kf.indicatorType = .activity
         self.venueImageAPIClient.getVenueImage(with: venue)
     }
     
@@ -59,7 +60,6 @@ class VenueCollectionViewCell: UICollectionViewCell {
 extension VenueCollectionViewCell: VenueImageAPIClientDelegate {
     
     func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue, image: UIImage?) {
-        venueImageView.kf.indicatorType = .activity
         
         if image != nil {
             venueImageView.image = image
