@@ -11,6 +11,7 @@ class SearchResultDetailViewController: UIViewController {
     
     let myView = SearchResultDetailView()
     
+    //let aVenue : Venue!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,14 +20,16 @@ class SearchResultDetailViewController: UIViewController {
         view.addSubview(myView)
     }
     
-    func configureNavBar() {
+    private func configureNavBar() {
         let addBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVenueButton))
         navigationItem.rightBarButtonItem = addBarItem
     }
     
-    @objc func addVenueButton() {
+    @objc private func addVenueButton() {
         print("add button pressed")
         let addVenueVC = AddVenueViewController()
+        //addVenueVC.venueToSendToDVC(venue: aVenue)
+        
         //create nav controller as its root
         let navController = UINavigationController(rootViewController:addVenueVC )
         addVenueVC.modalTransitionStyle = .crossDissolve
