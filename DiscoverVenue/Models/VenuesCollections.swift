@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct VenuesCollections: Codable {
+class VenuesCollections: Codable {
     var collectionName: String
     var savedVenues: [SavedVenue]
 }
 
-struct SavedVenue: Codable {
+class SavedVenue: Codable {
     var id: String
-    let venue: Venue
+    var venue: Venue
     var tip: String?
     var imageURL: String
 }
