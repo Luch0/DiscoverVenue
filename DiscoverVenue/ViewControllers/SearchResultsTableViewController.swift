@@ -10,8 +10,8 @@ import GameplayKit
 
 class SearchResultsTableViewController: UIViewController {
     
-    let venueView = SearchResultsTableView()
-    var tableViewVenues = [Venue]()
+    private let venueView = SearchResultsTableView()
+    private var tableViewVenues = [Venue]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
