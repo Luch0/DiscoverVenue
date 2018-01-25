@@ -75,8 +75,9 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         print("Selected IndexPath: \(indexPath)")
         //Segue to venueView here
         
-        let SRDVC = SearchResultDetailViewController()
-        self.navigationController?.pushViewController(SRDVC, animated: true)
+        // TODO: Needs to call singleton from file manager to load savedVenues collections
+        //let SRDVC = SearchResultDetailViewController()
+        //self.navigationController?.pushViewController(SRDVC, animated: true)
         
 //        let DetailVC = ModalSavedVenuesViewController()
 //
