@@ -11,6 +11,7 @@ class SearchResultDetailViewController: UIViewController {
     
     let myView = SearchResultDetailView()
     
+    var venue: Venue!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,14 +20,32 @@ class SearchResultDetailViewController: UIViewController {
         view.addSubview(myView)
     }
     
-    func configureNavBar() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // prevent from navbar to grow large
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    init(venue: Venue, image: UIImage) {
+        super.init(nibName: nil, bundle: nil)
+        self.venue = venue
+        myView.configureDetails(venue: venue, image: image)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureNavBar() {
         let addBarItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addVenueButton))
         navigationItem.rightBarButtonItem = addBarItem
     }
     
-    @objc func addVenueButton() {
+    @objc private func addVenueButton() {
         print("add button pressed")
         let addVenueVC = AddVenueViewController()
+        //addVenueVC.venueToSendToDVC(venue: aVenue)
+        
         //create nav controller as its root
         let navController = UINavigationController(rootViewController:addVenueVC )
         addVenueVC.modalTransitionStyle = .crossDissolve

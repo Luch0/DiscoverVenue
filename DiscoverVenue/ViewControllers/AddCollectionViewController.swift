@@ -20,7 +20,7 @@ class AddCollectionViewController: UIViewController {
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         view.backgroundColor = .clear
         
         // Title

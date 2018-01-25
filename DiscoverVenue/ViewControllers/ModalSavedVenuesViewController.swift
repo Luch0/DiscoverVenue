@@ -11,13 +11,19 @@ import UIKit
 class ModalSavedVenuesViewController: UIViewController {
 
     //Func to set up modalSavedVenuesVC when called
-    func configureSavedVenueVC(testArray: [Int]) {
-        self.sampleCityArray = testArray
+    func configureSavedVenueVC(aSpecificCollection: VenuesCollections) {
+        self.aVenueCollection = aSpecificCollection.savedVenues
     }
     
     let modalSavedVenuesView = ModalSavedVenuesView()
     
     var sampleCityArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    
+    var aVenueCollection = [SavedVenue]() {
+        didSet {
+            modalSavedVenuesView.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +35,9 @@ class ModalSavedVenuesViewController: UIViewController {
 
         
     }
+
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        animateTable()
-//    }
-    
-    func animateTable() {
+    private func animateTable() {
         modalSavedVenuesView.tableView.reloadData()
         let cells = modalSavedVenuesView.tableView.visibleCells
         let tableViewHeight = modalSavedVenuesView.tableView.bounds.size.height
@@ -51,7 +53,7 @@ class ModalSavedVenuesViewController: UIViewController {
         }
     }
 
-    func setupView() {
+    private func setupView() {
         view.backgroundColor = .purple
         
         // Left Bar Button
@@ -73,8 +75,9 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         print("Selected IndexPath: \(indexPath)")
         //Segue to venueView here
         
-        let SRDVC = SearchResultDetailViewController()
-        self.navigationController?.pushViewController(SRDVC, animated: true)
+        // TODO: Needs to call singleton from file manager to load savedVenues collections
+        //let SRDVC = SearchResultDetailViewController()
+        //self.navigationController?.pushViewController(SRDVC, animated: true)
         
 //        let DetailVC = ModalSavedVenuesViewController()
 //
@@ -90,17 +93,23 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
 extension ModalSavedVenuesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleCityArray.count
+        return aVenueCollection.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "VenueTableViewCell", for: indexPath) as? VenueTableViewCell else {return UITableViewCell()}
         
-        let aInt = sampleCityArray[indexPath.row]
+        let aVenue = aVenueCollection[indexPath.row]
         
-        cell.textLabel?.text = "Int: \(aInt)"
-        cell.imageView?.image = #imageLiteral(resourceName: "placeholder")
+        cell.textLabel?.text = "\(aVenue.id)"
+        
+        if aVenue.imageURL != nil {
+            //set image based of aVenue.imageURL here
+            //cell.collectionImageView.image = aVenue.imageURL
+        } else {
+            cell.imageView?.image = #imageLiteral(resourceName: "placeholder") //Placeholder
+        }
         
         return cell
         
