@@ -76,13 +76,12 @@ class FileManagerHelper {
     public func addVenueToANewCollection(collectionName: String, venueToSave: SavedVenue, and tip: String?) {
         
         //Make the new collection
-        var newCollection: VenuesCollections
-        newCollection.collectionName = collectionName
+        let newCollection = VenuesCollections(collection: collectionName, savedVenues: [])
         venuesCollectionsArr.append(newCollection)
         
         for theSavedVenues in venuesCollectionsArr {
             if collectionName == theSavedVenues.collectionName {
-                var copyOfVenue = venueToSave
+                let copyOfVenue = venueToSave
                 copyOfVenue.tip = tip
                 theSavedVenues.savedVenues.append(copyOfVenue)
             }
@@ -93,9 +92,9 @@ class FileManagerHelper {
     
     public func addVenueToAnExistingCollection(index: Int, venueToSave: SavedVenue, tip: String?) {
         
-        var copyOfVenue = venueToSave
+        let copyOfVenue = venueToSave
         copyOfVenue.tip = tip
-        venuesCollectionsArr[index].savedVenues.append(contentsOf: SavedVenue)
+        venuesCollectionsArr[index].savedVenues.append(copyOfVenue)
         
     }
     
