@@ -11,7 +11,8 @@ class SearchResultDetailViewController: UIViewController {
     
     let myView = SearchResultDetailView()
     
-    var venue: Venue!
+    private var venue: Venue!
+    private var venueImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class SearchResultDetailViewController: UIViewController {
     init(venue: Venue, image: UIImage) {
         super.init(nibName: nil, bundle: nil)
         self.venue = venue
+        self.venueImage = image
         myView.configureDetails(venue: venue, image: image)
     }
     
@@ -44,7 +46,7 @@ class SearchResultDetailViewController: UIViewController {
     @objc private func addVenueButton() {
         print("add button pressed")
         let addVenueVC = AddVenueViewController()
-        //addVenueVC.venueToSendToDVC(venue: aVenue)
+        addVenueVC.venueToSendToDVC(venue: venue, image: venueImage)
         
         //create nav controller as its root
         let navController = UINavigationController(rootViewController:addVenueVC )
