@@ -15,9 +15,17 @@ class UserCreatedCollectionsViewController: UIViewController {
     
     var sampleTestArray = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
     
+    var venuesCollectionArray = [VenuesCollections]() {
+        didSet {
+            userCreatedCollectionsView.collectionView.reloadData()
+            //FileManagerHelper.manager
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
         
     }
     
@@ -68,20 +76,20 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         
         print("The Collection View for IndexPath: \(indexPath.row) should pop up now")
         
-         // identify a specific collection
-         //let aSpecificCollection = UserCollections[indexPath.row]
-         
-         // using dependency injection to pass Data Object into Venue Collection View Controller
-         let modalSavedVenuesVC = ModalSavedVenuesViewController()
+        // identify a specific collection
+        let aSpecificCollection = venuesCollectionArray[indexPath.row]
+        
+        // using dependency injection to pass Data Object into Venue Collection View Controller
+        let modalSavedVenuesVC = ModalSavedVenuesViewController()
         
         let mSVVCinNavCon = UINavigationController(rootViewController: modalSavedVenuesVC)
-         
-         modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
-         modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
-         present(mSVVCinNavCon, animated: true, completion: nil)
-         
-         //func to configure view on VC
-        modalSavedVenuesVC.configureSavedVenueVC(testArray: sampleTestArray)
+        
+        modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
+        modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
+        present(mSVVCinNavCon, animated: true, completion: nil)
+        
+        //func to configure view on VC
+        modalSavedVenuesVC.configureSavedVenueVC(testArray: aSpecificCollection)
         
     }
     
@@ -89,19 +97,25 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
 extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return sampleTestArray.count
+        return venuesCollectionArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionsCustomCollectionViewCell", for: indexPath) as! CollectionsCustomCollectionViewCell
         
-        let name = sampleTestArray[indexPath.row]
+        let aCollection = venuesCollectionArray[indexPath.row]
         
         //cell.spinner.isHidden = false
         //cell.spinner.startAnimating()
-        cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder")
-        cell.collectionNameLabel.text = "IndexPath : \(indexPath.row)"
+        
+        if aCollection.savedVenues[0].imageURL != nil {
+            //set image based of name.savedVenues[0].imageURL here
+            //cell.collectionImageView.image = name.savedVenues[0].imageURL
+        } else {
+            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
+        }
+        cell.collectionNameLabel.text = "\(aCollection.collectionName)"
         
         
         return cell
