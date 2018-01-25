@@ -11,7 +11,7 @@ import Alamofire
 
 
 protocol VenueImageAPIClientDelegate: class {
-    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue)
+    func venueImageAPIClientService(_ venueImageAPIClient: VenueImageAPIClient, didReceiveVenueImageURL url: URL?, venue: Venue, image: UIImage?)
 }
 
 class VenueImageAPIClient {
@@ -34,6 +34,12 @@ class VenueImageAPIClient {
     
     func getVenueImage(with venue: Venue) {
         
+        // check if image is cached
+        if let image = NSCacheHelper.manager.getImage(with: venue.id) {
+            self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: nil, venue: venue, image: image)
+            return
+        }
+        
         let params: [String: Any] = ["client_id"     : clientID,
                                      "client_secret" : clientSecret,
                                      "v"             : version]
@@ -42,15 +48,16 @@ class VenueImageAPIClient {
         Alamofire.request(foursquareImageBaseURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData{ (dataResponse) in
             if let error = dataResponse.error {
                 print("data response error: \(error.localizedDescription)")
+                self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: nil, venue: venue, image: nil)
             } else if let data = dataResponse.data {
                 do {
                     let venueImagesResponse = try JSONDecoder().decode(ImagesResponse.self, from: data)
                     if venueImagesResponse.response.photos.count == 0 {
-                        self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: nil, venue: venue)
+                        self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: nil, venue: venue, image: nil)
                         return
                     }
                     let venueImage = venueImagesResponse.response.photos.items[0]
-                    self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: URL(string: "\(venueImage.prefix)300x300\(venueImage.suffix)"), venue: venue)
+                    self.delegate?.venueImageAPIClientService(self, didReceiveVenueImageURL: URL(string: "\(venueImage.prefix)300x300\(venueImage.suffix)"), venue: venue, image: nil)
                 } catch {
                     print("decoding error: \(error)")
                 }
