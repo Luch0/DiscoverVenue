@@ -29,13 +29,9 @@ class ModalSavedVenuesViewController: UIViewController {
 
         
     }
+
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        animateTable()
-//    }
-    
-    func animateTable() {
+    private func animateTable() {
         modalSavedVenuesView.tableView.reloadData()
         let cells = modalSavedVenuesView.tableView.visibleCells
         let tableViewHeight = modalSavedVenuesView.tableView.bounds.size.height
@@ -51,7 +47,7 @@ class ModalSavedVenuesViewController: UIViewController {
         }
     }
 
-    func setupView() {
+    private func setupView() {
         view.backgroundColor = .purple
         
         // Left Bar Button

@@ -16,18 +16,18 @@ struct UserDefaultsHelper {
     private let lastSearchedLocationKey = "lastSearchedLocationKey"
     
     //Getting
-    func getLastSearchedVenue() -> String? {
+    public func getLastSearchedVenue() -> String? {
         return UserDefaults.standard.string(forKey: lastSearchedVenueKey)
     }
-    func getLastSearchedLocation() -> String? {
+    public func getLastSearchedLocation() -> String? {
         return UserDefaults.standard.string(forKey: lastSearchedLocationKey)
     }
     
     //Saving
-    func lastSearchedVenue(named: String){
+    public func lastSearchedVenue(named: String){
         UserDefaults.standard.setValue(named, forKey: lastSearchedVenueKey)
     }
-    func lastSearchedLocation(named: String){
+    public func lastSearchedLocation(named: String){
         UserDefaults.standard.setValue(named, forKey: lastSearchedLocationKey)
     }
     
