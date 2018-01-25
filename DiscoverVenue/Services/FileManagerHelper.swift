@@ -72,16 +72,18 @@ class FileManagerHelper {
         return true
     }
     
-    // This adds a Venue to the Array inside of a VenueCollection
-    func addVenueToACollection(collectionName: String?, savedVenue: SavedVenue, and tip: String?) {
-        for savedVenues in venuesCollectionsArr {
-            if collectionName == savedVenues.collectionName {
-                var copyOfVenue = savedVenue
+//     This adds a Venue to the Array inside of a VenueCollection
+    func addVenueToACollection(collectionName: String?, venueToSave: SavedVenue, and tip: String?) {
+        for theSavedVenues in venuesCollectionsArr {
+            if collectionName == theSavedVenues.collectionName {
+                let copyOfVenue = venueToSave
                 copyOfVenue.tip = tip
-                savedVenues.savedVenues.append(copyOfVenue)
+                theSavedVenues.savedVenues.append(copyOfVenue)
             }
         }
     }
+    
+
     
     
     //read
@@ -92,7 +94,7 @@ class FileManagerHelper {
     
 //    this func gets the venues insides a collection
     func getVenuesInACollection(collectionName: String) -> [SavedVenue] {
-        var arrToReturn = [SavedVenue]
+        var arrToReturn = [SavedVenue]()
         for savedVenues in venuesCollectionsArr {
             if collectionName == savedVenues.collectionName {
                 arrToReturn = savedVenues.savedVenues
