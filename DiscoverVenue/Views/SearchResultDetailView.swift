@@ -27,11 +27,11 @@ class SearchResultDetailView: UIView {
         return iv
     }()
     
-    lazy var spinner:UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView()
-        spinner.startAnimating()
-        return spinner
-    }()
+//    lazy var spinner:UIActivityIndicatorView = {
+//        let spinner = UIActivityIndicatorView()
+//        spinner.startAnimating()
+//        return spinner
+//    }()
     
     lazy var restaurantTypelabel: UILabel = {
         let label = UILabel()
@@ -75,7 +75,7 @@ class SearchResultDetailView: UIView {
     private func setupViews() {
         setupLabel()
         setupImageView()
-        setupSpinner()
+        //setupSpinner()
         setupRestaurantTypeLabel()
         setupTipLabel()
     }
@@ -100,13 +100,13 @@ class SearchResultDetailView: UIView {
         }
     }
     
-    func setupSpinner() {
-        addSubview(spinner)
-        spinner.snp.makeConstraints{(make) -> Void in
-            make.centerX.equalTo(detailedImageView.snp.centerX)
-            make.centerY.equalTo(detailedImageView.snp.centerY)
-        }
-    }
+//    func setupSpinner() {
+//        addSubview(spinner)
+//        spinner.snp.makeConstraints{(make) -> Void in
+//            make.centerX.equalTo(detailedImageView.snp.centerX)
+//            make.centerY.equalTo(detailedImageView.snp.centerY)
+//        }
+//    }
     func setupRestaurantTypeLabel() {
         addSubview(restaurantTypelabel)
         restaurantTypelabel.snp.makeConstraints{(make) -> Void in
@@ -125,6 +125,13 @@ class SearchResultDetailView: UIView {
             make.height.equalTo(snp.height).multipliedBy(0.07)
             make.centerX.equalTo(snp.centerX)
         }
+    }
+    
+    func configureDetails(venue: Venue, image: UIImage) {
+        self.label.text = venue.name
+        self.detailedImageView.kf.indicatorType = .activity
+        self.detailedImageView.image = image
+        // more details?
     }
     
 }
