@@ -57,7 +57,7 @@ extension LocationService {
 extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("Did update locations")
+        //print("Did update locations")
         
         //print("didUpdateLocations: \(locations)")
         
