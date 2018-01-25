@@ -76,8 +76,7 @@ class FileManagerHelper {
     public func addVenueToANewCollection(collectionName: String, venueToSave: SavedVenue, and tip: String?) {
         
         //Make the new collection
-        var newCollection: VenuesCollections
-        newCollection.collectionName = collectionName
+        let newCollection = VenuesCollections(collection: collectionName, savedVenues: [])
         venuesCollectionsArr.append(newCollection)
         
         for theSavedVenues in venuesCollectionsArr {
@@ -90,7 +89,14 @@ class FileManagerHelper {
     }
     
     // This adds the venue to an existing collection when the user clicks the collection cell in the addVenueView
-    // Something with indexpath
+    
+    public func addVenueToAnExistingCollection(index: Int, venueToSave: SavedVenue, tip: String?) {
+        
+        let copyOfVenue = venueToSave
+        copyOfVenue.tip = tip
+        venuesCollectionsArr[index].savedVenues.append(copyOfVenue)
+        
+    }
     
     
     
