@@ -10,12 +10,10 @@ import UIKit
 
 class UserCreatedCollectionsViewController: UIViewController {
     
-    let userCreatedCollectionsView = UserCreatedCollectionsView()
-    let cellSpacing: CGFloat =  5.0
+    private let userCreatedCollectionsView = UserCreatedCollectionsView()
+    private let cellSpacing: CGFloat =  5.0
     
-    var sampleTestArray = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-    
-    var venuesCollectionArray = [VenuesCollections]() {
+    private var venuesCollectionArray = [VenuesCollections]() {
         didSet {
             userCreatedCollectionsView.collectionView.reloadData()
             //FileManagerHelper.manager
@@ -52,7 +50,7 @@ class UserCreatedCollectionsViewController: UIViewController {
     
     
     
-    @objc func addTapped() {
+    @objc private func addTapped() {
         // Present AddCollectionViewController
         print("Present AddCollectionViewController")
         
@@ -112,13 +110,13 @@ extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
         //cell.spinner.startAnimating()
         cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
         
-//        if aCollection.savedVenues[0].imageURL == nil {
-//            //set image based of name.savedVenues[0].imageURL here
-//            //cell.collectionImageView.image = name.savedVenues[0].imageURL
-//        } else {
-//            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
-//        }
-        cell.collectionNameLabel.text = "\(aCollection.collectionName)"
+        if let latestVenue = aCollection.savedVenues.last {
+            cell.collectionImageView.image = FileManagerHelper.manager.getImage(with: latestVenue.id)
+        } else {
+            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder") //Placeholder
+        }
+        
+        cell.collectionNameLabel.text = aCollection.collectionName
         
         
         return cell

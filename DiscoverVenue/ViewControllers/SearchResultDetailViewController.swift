@@ -11,8 +11,8 @@ class SearchResultDetailViewController: UIViewController {
     
     let myView = SearchResultDetailView()
     
-    var venue: Venue!
-    var venueImage: UIImage!
+    private var venue: Venue!
+    private var venueImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()

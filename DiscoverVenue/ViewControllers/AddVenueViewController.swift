@@ -29,6 +29,8 @@ class AddVenueViewController: UIViewController {
         configureNavBar()
         addVenueView.collectionView.dataSource = self
         addVenueView.collectionView.delegate = self
+        addVenueView.collectionTextField.delegate = self
+        addVenueView.tipTextField.delegate = self
     }
 
     
@@ -58,13 +60,10 @@ class AddVenueViewController: UIViewController {
             
         }
         
-        let alert = UIAlertController(title: "Saved to Collection", message: "(venue) was saved to (collection title)", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        let alert = UIAlertController(title: "Saved to Collection", message: "\(oneVenue.name) was saved to \(addVenueView.collectionTextField.text!)", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) -> Void in self.dismiss(animated: true, completion: nil)})
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
-        
-        dismiss(animated: true, completion: nil)
-        //TODO: Add creating/saving functionality
        
     }
     
@@ -83,31 +82,22 @@ extension AddVenueViewController: UICollectionViewDelegate {
         let savedVenue = SavedVenue(id: oneVenue.id, venue: oneVenue, tip: addVenueView.tipTextField.text, imageURL: oneVenue.id)
         
         if addVenueView.collectionTextField.text == "" {
-            FileManagerHelper.manager.addVenueToAnExistingCollection(index: indexPath.row, venueToSave: savedVenue, tip: "")
-            dismiss(animated: true, completion: nil)
+            FileManagerHelper.manager.saveImage(with: oneVenue.id, image: oneImage)
+            FileManagerHelper.manager.addVenueToAnExistingCollection(index: indexPath.row, venueToSave: savedVenue)
+            
+            let alert = UIAlertController(title: "Saved to Collection", message: "\(oneVenue.name) was saved to \(FileManagerHelper.manager.getVenuesCollectionsArr()[indexPath.row].collectionName)", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) -> Void in self.dismiss(animated: true, completion: nil)})
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
         }
-        
-        /*
-         // identify a specific collection
-         let aSpecificCollection = UserCollections[indexPath.row]
-         
-         // using dependency injection to pass Data Object into Venue Collection View Controller
-         let savedVenueVC = SavedVenueViewController()
-         
-         savedVenueVC.modalTransitionStyle = .crossDissolve
-         savedVenueVC.modalPresentationStyle = .overCurrentContext
-         present(savedVenueVC, animated: true, completion: nil)
-         
-         //func to configure view on VC
-         savedVenueVC.savedVenueView.configureDetailView(forecast: aSpecificDay, cityName: cityName)
-         */
+
     }
     
 }
 extension AddVenueViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return 5
+        return FileManagerHelper.manager.getVenuesCollectionsArr().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -116,8 +106,18 @@ extension AddVenueViewController: UICollectionViewDataSource {
         
         //cell.spinner.isHidden = false
         //cell.spinner.startAnimating()
-        cell.collectionImageView.image = #imageLiteral(resourceName: "placeholderImage")
-        cell.collectionNameLabel.text = "IndexPath : \(indexPath.row)"
+        
+        cell.plusSignImageView.isHidden = false
+        
+        if let id =  FileManagerHelper.manager.getVenuesCollectionsArr()[indexPath.row].savedVenues.first?.id {
+            
+            cell.collectionImageView.image = FileManagerHelper.manager.getImage(with: id)
+            cell.collectionNameLabel.text = FileManagerHelper.manager.getVenuesCollectionsArr()[indexPath.row].collectionName
+        } else {
+            cell.collectionImageView.image = #imageLiteral(resourceName: "placeholder")
+            cell.collectionNameLabel.text = ""
+        }
+        
         
         
         return cell
@@ -146,5 +146,13 @@ extension AddVenueViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
+    }
+}
+
+extension AddVenueViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
     }
 }
