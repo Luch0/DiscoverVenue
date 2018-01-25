@@ -22,4 +22,10 @@ class SavedVenue: Codable {
     var venue: Venue
     var tip: String?
     var imageURL: String
+    init(id: String, venue: Venue, tip: String?, imageURL: String) {
+        self.id = id
+        self.venue = venue
+        self.tip = tip
+        self.imageURL = imageURL
+    }
 }

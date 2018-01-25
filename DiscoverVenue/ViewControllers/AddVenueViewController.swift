@@ -16,9 +16,11 @@ class AddVenueViewController: UIViewController {
     let addVenueView = AddVenueView()
     
     var oneVenue: Venue!
+    var oneImage: UIImage!
     
-    func venueToSendToDVC(venue: Venue) {
+    func venueToSendToDVC(venue: Venue, image: UIImage) {
         self.oneVenue = venue
+        self.oneImage = image
     }
     
     override func viewDidLoad() {
@@ -46,10 +48,22 @@ class AddVenueViewController: UIViewController {
     }
     
     @objc private func createButton() {
+        
+        let savedVenue = SavedVenue(id: oneVenue.id, venue: oneVenue, tip: addVenueView.tipTextField.text, imageURL: oneVenue.id)
+        
+        FileManagerHelper.manager.saveImage(with: oneVenue.id, image: oneImage)
+        
+        if addVenueView.collectionTextField.text != "" {
+            FileManagerHelper.manager.addVenueToANewCollection(collectionName: addVenueView.collectionTextField.text!, venueToSave: savedVenue, and: nil)
+            
+        }
+        
         let alert = UIAlertController(title: "Saved to Collection", message: "(venue) was saved to (collection title)", preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(ok)
         present(alert, animated: true, completion: nil)
+        
+        dismiss(animated: true, completion: nil)
         //TODO: Add creating/saving functionality
        
     }
@@ -64,6 +78,14 @@ extension AddVenueViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         print("The Collection View for IndexPath: \(indexPath.row) should pop up now")
+        
+        
+        let savedVenue = SavedVenue(id: oneVenue.id, venue: oneVenue, tip: addVenueView.tipTextField.text, imageURL: oneVenue.id)
+        
+        if addVenueView.collectionTextField.text == "" {
+            FileManagerHelper.manager.addVenueToAnExistingCollection(index: indexPath.row, venueToSave: savedVenue, tip: "")
+            dismiss(animated: true, completion: nil)
+        }
         
         /*
          // identify a specific collection
