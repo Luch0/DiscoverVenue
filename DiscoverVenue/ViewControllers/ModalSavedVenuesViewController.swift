@@ -58,7 +58,7 @@ class ModalSavedVenuesViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .purple
+        view.backgroundColor = UIColor.groupTableViewBackground
         
         // Left Bar Button
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "◀ Back", style: .done, target: self, action: #selector(backButton))
@@ -88,11 +88,13 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
                 self.navigationController?.pushViewController(searchResultsDVC, animated: true)
         
             }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120.0
+    }
         
         // TODO: Needs to call singleton from file manager to load savedVenues collections
-        //let SRDVC = SearchResultDetailViewController()
-        //self.navigationController?.pushViewController(SRDVC, animated: true)
-        
+    
         //        let DetailVC = ModalSavedVenuesViewController()
         //
         //        let mSVVCinNavCon = UINavigationController(rootViewController: DetailVC)
