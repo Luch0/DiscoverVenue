@@ -16,39 +16,38 @@ class SearchResultDetailView: UIView {
         let label = UILabel()
         label.text = "Placeholder text"
         label.font = UIFont.systemFont(ofSize: 40, weight: UIFont.Weight(rawValue: 250))
-        label.backgroundColor = .red
+        //label.backgroundColor = .red
         return label
     }()
     
     lazy var detailedImageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .blue
+        //iv.backgroundColor = .blue
         iv.contentMode = .scaleAspectFit
         return iv
     }()
-    
-//    lazy var spinner:UIActivityIndicatorView = {
-//        let spinner = UIActivityIndicatorView()
-//        spinner.startAnimating()
-//        return spinner
-//    }()
     
     lazy var restaurantTypelabel: UILabel = {
         let label = UILabel()
         label.text = "Placeholder text"
         label.font = UIFont.systemFont(ofSize: 20)
-        label.backgroundColor = .green
+        //label.backgroundColor = .green
         return label
     }()
     
     lazy var tiplabel: UILabel = {
         let label = UILabel()
-        label.text = "Placeholder text"
+        label.text = "Tips are great for the community"
         label.font = UIFont.systemFont(ofSize: 20)
-        label.backgroundColor = .red
+        //label.backgroundColor = .red
         return label
     }()
     
+    lazy var directionsButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(UIColor.blue, for: .normal)
+        return button
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -62,7 +61,7 @@ class SearchResultDetailView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .yellow
+        backgroundColor = UIColor.groupTableViewBackground
         setupViews()
     }
     
@@ -78,6 +77,7 @@ class SearchResultDetailView: UIView {
         //setupSpinner()
         setupRestaurantTypeLabel()
         setupTipLabel()
+        setupDirectionsButton()
     }
     
     func setupLabel() {
@@ -95,25 +95,18 @@ class SearchResultDetailView: UIView {
         addSubview(detailedImageView)
         detailedImageView.snp.makeConstraints{(make) -> Void in
             make.top.equalTo(label.snp.bottom).multipliedBy(1)
-            make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height).multipliedBy(0.64)
+            make.width.equalTo(safeAreaLayoutGuide.snp.width)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.64)
         }
     }
     
-//    func setupSpinner() {
-//        addSubview(spinner)
-//        spinner.snp.makeConstraints{(make) -> Void in
-//            make.centerX.equalTo(detailedImageView.snp.centerX)
-//            make.centerY.equalTo(detailedImageView.snp.centerY)
-//        }
-//    }
     func setupRestaurantTypeLabel() {
         addSubview(restaurantTypelabel)
         restaurantTypelabel.snp.makeConstraints{(make) -> Void in
             make.top.equalTo(detailedImageView.snp.bottom)
-            make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height).multipliedBy(0.07)
-            make.centerX.equalTo(snp.centerX)
+            make.width.equalTo(safeAreaLayoutGuide.snp.width)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.07)
+            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
         }
     }
     
@@ -121,17 +114,33 @@ class SearchResultDetailView: UIView {
         addSubview(tiplabel)
         tiplabel.snp.makeConstraints{(make) -> Void in
             make.top.equalTo(restaurantTypelabel.snp.bottom)
-            make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height).multipliedBy(0.07)
-            make.centerX.equalTo(snp.centerX)
+            make.width.equalTo(safeAreaLayoutGuide.snp.width)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.07)
+            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
+        }
+    }
+    
+    func setupDirectionsButton() {
+        addSubview(directionsButton)
+        directionsButton.snp.makeConstraints { (make) in
+            make.top.equalTo(tiplabel.snp.bottom)
+            make.width.equalTo(safeAreaLayoutGuide.snp.width)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.07)
+            make.centerX.equalTo(safeAreaLayoutGuide.snp.centerX)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
     
     func configureDetails(venue: Venue, image: UIImage) {
         self.label.text = venue.name
+        self.restaurantTypelabel.text = venue.categories[0].name
         self.detailedImageView.kf.indicatorType = .activity
         self.detailedImageView.image = image
-        // more details?
+        guard let address = venue.location.address else {
+           self.directionsButton.setTitle("No address available", for: .normal)
+            return
+        }
+        self.directionsButton.setTitle("\(address)", for: .normal)
     }
     
 }
