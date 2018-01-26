@@ -81,11 +81,12 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         
                 //        TODO: use dependency injection to pass Venue Model Object to dvc
                 
-//                let cell = modalSavedVenuesView.tableView.cellForRow(at: indexPath) as! VenueTableViewCell
-//                guard let image = cell.venueImageView.image else { return }
-//                let SRDVC = SearchResultDetailViewController(venue: cell, image: image)
-//                self.navigationController?.pushViewController(SRDVC, animated: true)
-//                
+                let cell = modalSavedVenuesView.tableView.cellForRow(at: indexPath) as! VenueTableViewCell
+                guard let image = cell.venueImageView.image else { return }
+                let savedVenue = aVenueCollection[indexPath.row]
+                let searchResultsDVC = SearchResultDetailViewController(venue: savedVenue.venue, image: image)
+                self.navigationController?.pushViewController(searchResultsDVC, animated: true)
+        
             }
         
         // TODO: Needs to call singleton from file manager to load savedVenues collections
