@@ -14,6 +14,11 @@ class SearchResultDetailViewController: UIViewController {
     
     private var venue: Venue!
     private var venueImage: UIImage!
+    private var savedVenue: SavedVenue!
+    
+    public func sendSavedVenue(savedVenue: SavedVenue) {
+        self.savedVenue = savedVenue
+    }
     
     private var longPressGesture = UILongPressGestureRecognizer()
     
@@ -50,6 +55,14 @@ class SearchResultDetailViewController: UIViewController {
 //            // alert controller there is no lat and long
 //            return
 //        }
+        
+        if LocationService.manager.checkForLocationServices() == .denied {
+            guard let validSettings: URL = URL(string: UIApplicationOpenSettingsURLString) else { return }
+            UIApplication.shared.open(validSettings, options: [:], completionHandler: nil)
+            return
+        }
+        
+        
         let userCoordinate = CLLocationCoordinate2D(latitude: LocationService.manager.getCurrentLatitude()!, longitude: LocationService.manager.getCurrentLongitude()!)
         let placeCoordinate = CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng)
         let directionsURLString = "http://maps.apple.com/?saddr=\(userCoordinate.latitude),\(userCoordinate.longitude)&daddr=\(placeCoordinate.latitude),\(placeCoordinate.longitude)"
@@ -65,11 +78,16 @@ class SearchResultDetailViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
     }
     
-    init(venue: Venue, image: UIImage) {
+    init(venue: Venue, image: UIImage, savedVenue: SavedVenue?) {
         super.init(nibName: nil, bundle: nil)
         self.venue = venue
         self.venueImage = image
-        myView.configureDetails(venue: venue, image: image)
+        self.savedVenue = savedVenue
+        if savedVenue == nil {
+            myView.configureDetails(venue: venue, image: image)
+        } else {
+            myView.configureDetailsFromSaved(savedVenue: savedVenue!)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

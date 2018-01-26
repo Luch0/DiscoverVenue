@@ -75,9 +75,4 @@ class ModalSavedVenuesView: UIView {
         
     }
     
-    //Func to set up modalSavedVenuesView when called
-    public func configureSavedVenueView(testArray: [String]) {
-        //self.testArray = testArray
-    }
-    
 }

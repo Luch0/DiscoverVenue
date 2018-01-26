@@ -80,7 +80,7 @@ extension SearchResultsTableViewController: UITableViewDelegate {
         
         let cell = tableView.cellForRow(at: indexPath) as! VenueTableViewCell
         guard let image = cell.venueImageView.image else { return }
-        let SRDVC = SearchResultDetailViewController(venue: tableViewVenues[indexPath.row], image: image)
+        let SRDVC = SearchResultDetailViewController(venue: tableViewVenues[indexPath.row], image: image, savedVenue: nil)
         self.navigationController?.pushViewController(SRDVC, animated: true)
         
     }
