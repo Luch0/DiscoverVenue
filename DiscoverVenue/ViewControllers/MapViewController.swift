@@ -260,7 +260,14 @@ extension MapViewController: UICollectionViewDataSource {
     
 }
 
-extension MapViewController: UICollectionViewDelegate { }
+extension MapViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let deatilVC = SearchResultDetailViewController(venue: venues[indexPath.row], image: NSCacheHelper.manager.getImage(with: venues[indexPath.row].id) ?? #imageLiteral(resourceName: "placeholder"), savedVenue: nil)
+        navigationController?.pushViewController(deatilVC, animated: true)
+    }
+    
+}
 
 extension MapViewController: UICollectionViewDelegateFlowLayout {
     
