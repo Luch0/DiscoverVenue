@@ -12,7 +12,7 @@ import UIKit
 
 
 class ModalSavedVenuesViewController: UIViewController {
-
+    
     
     
     //Func to set up modalSavedVenuesVC when called
@@ -33,12 +33,13 @@ class ModalSavedVenuesViewController: UIViewController {
         view.addSubview(modalSavedVenuesView)
         modalSavedVenuesView.tableView.delegate = self
         modalSavedVenuesView.tableView.dataSource = self
+        modalSavedVenuesView.tableView.rowHeight = UITableViewAutomaticDimension
         setupView()
         animateTable()
-
+        
         
     }
-
+    
     
     private func animateTable() {
         modalSavedVenuesView.tableView.reloadData()
@@ -55,7 +56,7 @@ class ModalSavedVenuesViewController: UIViewController {
             delayCounter += 1
         }
     }
-
+    
     private func setupView() {
         view.backgroundColor = .purple
         
@@ -70,7 +71,7 @@ class ModalSavedVenuesViewController: UIViewController {
     }
     
     
-
+    
 }
 extension ModalSavedVenuesViewController: UITableViewDelegate {
     
@@ -78,22 +79,52 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         print("Selected IndexPath: \(indexPath)")
         //Segue to venueView here
         
+                //        TODO: use dependency injection to pass Venue Model Object to dvc
+                
+                let cell = modalSavedVenuesView.tableView.cellForRow(at: indexPath) as! VenueTableViewCell
+                guard let image = cell.venueImageView.image else { return }
+                let savedVenue = aVenueCollection[indexPath.row]
+                let searchResultsDVC = SearchResultDetailViewController(venue: savedVenue.venue, image: image)
+                self.navigationController?.pushViewController(searchResultsDVC, animated: true)
+        
+            }
+        
         // TODO: Needs to call singleton from file manager to load savedVenues collections
         //let SRDVC = SearchResultDetailViewController()
         //self.navigationController?.pushViewController(SRDVC, animated: true)
         
-//        let DetailVC = ModalSavedVenuesViewController()
-//
-//        let mSVVCinNavCon = UINavigationController(rootViewController: DetailVC)
-//
-//        DetailVC.modalTransitionStyle = .crossDissolve
-//        DetailVC.modalPresentationStyle = .overCurrentContext
-//        present(mSVVCinNavCon, animated: true, completion: nil)
-    }
+        //        let DetailVC = ModalSavedVenuesViewController()
+        //
+        //        let mSVVCinNavCon = UINavigationController(rootViewController: DetailVC)
+        //
+        //        DetailVC.modalTransitionStyle = .crossDissolve
+        //        DetailVC.modalPresentationStyle = .overCurrentContext
+        //        present(mSVVCinNavCon, animated: true, completion: nil)
+//    }
     
 }
 
 extension ModalSavedVenuesViewController: UITableViewDataSource {
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var numOfSections: Int = 0
+        if aVenueCollection.count > 0 {
+            modalSavedVenuesView.tableView.backgroundView = nil
+            modalSavedVenuesView.tableView.separatorStyle = .singleLine
+            numOfSections = 1
+        } else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: modalSavedVenuesView.tableView.bounds.size.width, height: modalSavedVenuesView.tableView.bounds.size.height))
+            noDataLabel.text = "No Saved Venues"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            modalSavedVenuesView.tableView.backgroundView = noDataLabel
+            modalSavedVenuesView.tableView.separatorStyle = .none
+        }
+        return numOfSections
+    }
+    
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return aVenueCollection.count
@@ -105,17 +136,17 @@ extension ModalSavedVenuesViewController: UITableViewDataSource {
         
         let aVenue = aVenueCollection[indexPath.row]
         
-        cell.textLabel?.text = "\(aVenue.id)"
+        //cell.configureCell(venue: aVenue.venue, venueImageAPIClient: nil)
         
-        if aVenue.imageURL != nil {
-            //set image based of aVenue.imageURL here
-            //cell.collectionImageView.image = aVenue.imageURL
+        cell.nameLabel.text = "\(aVenue.venue.name)"
+        cell.ratingLabel.text = "\(aVenue.tip ?? "Info Unavailable")"
+        
+        if let savedImage = FileManagerHelper.manager.getImage(with: aVenue.id) {
+            cell.venueImageView.image = savedImage
         } else {
-            cell.imageView?.image = #imageLiteral(resourceName: "placeholder") //Placeholder
+            cell.venueImageView.image = #imageLiteral(resourceName: "placeholder")
         }
-        
         return cell
-        
         
     }
     
