@@ -75,7 +75,7 @@ class CollectionsCustomCollectionViewCell: UICollectionViewCell {
         addSubview(spinner)
         addSubview(plusSignImageView)
         setupVenueImageView()
-        backgroundColor = .clear
+        backgroundColor = UIColor.groupTableViewBackground
     }
     
     private func setupVenueImageView() {

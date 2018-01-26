@@ -35,7 +35,6 @@ class UserCreatedCollectionsViewController: UIViewController {
     }
     
     private func setUpView() {
-        view.backgroundColor = .purple
         navigationItem.title = "My Collections"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
@@ -95,6 +94,22 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
     
 }
 extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        var numOfSections: Int = 0
+        if venuesCollectionArray.count > 0 {
+            userCreatedCollectionsView.collectionView.backgroundView = nil
+            numOfSections = 1
+        } else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: userCreatedCollectionsView.collectionView.bounds.size.width, height: userCreatedCollectionsView.collectionView.bounds.size.height))
+            noDataLabel.text = "No Collections Yet"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            userCreatedCollectionsView.collectionView.backgroundView = noDataLabel
+        }
+        return numOfSections
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return venuesCollectionArray.count
