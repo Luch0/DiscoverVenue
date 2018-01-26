@@ -15,11 +15,9 @@ class ModalSavedVenuesViewController: UIViewController {
         self.aVenueCollection = aSpecificCollection.savedVenues
     }
     
-    let modalSavedVenuesView = ModalSavedVenuesView()
+    private let modalSavedVenuesView = ModalSavedVenuesView()
     
-    var sampleCityArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    
-    var aVenueCollection = [SavedVenue]() {
+    private var aVenueCollection = [SavedVenue]() {
         didSet {
             modalSavedVenuesView.tableView.reloadData()
         }
@@ -62,7 +60,7 @@ class ModalSavedVenuesViewController: UIViewController {
         
     }
     
-    @ objc func backButton() {
+    @objc private func backButton() {
         self.dismiss(animated: true, completion: nil)
     }
     

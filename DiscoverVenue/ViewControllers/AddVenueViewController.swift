@@ -9,16 +9,16 @@ import UIKit
 
 class AddVenueViewController: UIViewController {
     
-    let cellSpacing: CGFloat =  5.0
+    private let cellSpacing: CGFloat =  5.0
     
-    let myView = SearchResultDetailView()
+    private let myView = SearchResultDetailView()
     
-    let addVenueView = AddVenueView()
+    private let addVenueView = AddVenueView()
     
-    var oneVenue: Venue!
-    var oneImage: UIImage!
+    private var oneVenue: Venue!
+    private var oneImage: UIImage!
     
-    func venueToSendToDVC(venue: Venue, image: UIImage) {
+    public func venueToSendToDVC(venue: Venue, image: UIImage) {
         self.oneVenue = venue
         self.oneImage = image
     }
