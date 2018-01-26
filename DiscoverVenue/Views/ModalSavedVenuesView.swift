@@ -13,10 +13,10 @@ class ModalSavedVenuesView: UIView {
     lazy var topLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         label.text = "Venues in Collection"
         label.backgroundColor = .clear
-        label.textColor = UIColor(red: 0.922, green: 0.745, blue: 0.922, alpha: 1.00)
+        label.textColor = .black
         label.numberOfLines = 0
         return label
     }()
@@ -25,7 +25,7 @@ class ModalSavedVenuesView: UIView {
         let tv = UITableView()
         //create and register a cell
         tv.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueTableViewCell")
-        tv.backgroundColor = .gray
+        tv.backgroundColor = UIColor.groupTableViewBackground
         return tv
     }()
     
@@ -42,7 +42,7 @@ class ModalSavedVenuesView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .purple
+        backgroundColor = UIColor.groupTableViewBackground
         
         setupViews()
     }
@@ -73,11 +73,6 @@ class ModalSavedVenuesView: UIView {
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
         }
         
-    }
-    
-    //Func to set up modalSavedVenuesView when called
-    public func configureSavedVenueView(testArray: [String]) {
-        //self.testArray = testArray
     }
     
 }

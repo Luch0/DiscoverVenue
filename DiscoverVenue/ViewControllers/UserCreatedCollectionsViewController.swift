@@ -43,6 +43,8 @@ class UserCreatedCollectionsViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAll))
+        
         //Add Initial View
         view.addSubview(userCreatedCollectionsView)
         
@@ -70,6 +72,18 @@ class UserCreatedCollectionsViewController: UIViewController {
         
     }
     
+    @objc private func deleteAll() {
+        let alert = UIAlertController(title: "Delete All?", message: "Press 'Yes' to erase Saved Venues", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (UIAlertAction) in
+            FileManagerHelper.manager.eraseSaves()
+            self.viewRemovedRefreshNowPlease() // This calls from File Manager and THEN refreshes the view
+        }))
+        alert.addAction(UIAlertAction(title: "Nope", style: .default, handler: { (UIAlertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     
 }
@@ -90,7 +104,7 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         //func to configure view on VC
         modalSavedVenuesVC.configureSavedVenueVC(aSpecificCollection: aSpecificCollection)
         
-        modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
+        modalSavedVenuesVC.modalTransitionStyle = .coverVertical
         modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
         present(mSVVCinNavCon, animated: true, completion: nil)
         

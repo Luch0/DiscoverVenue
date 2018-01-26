@@ -55,9 +55,18 @@ class AddVenueViewController: UIViewController {
         
         FileManagerHelper.manager.saveImage(with: oneVenue.id, image: oneImage)
         
-        if addVenueView.collectionTextField.text != "" {
-            FileManagerHelper.manager.addVenueToANewCollection(collectionName: addVenueView.collectionTextField.text!, venueToSave: savedVenue, and: nil)
-            
+        
+        if addVenueView.collectionTextField.text == "" {
+            let alert = UIAlertController(title: "Error", message: "Please enter a name for the new collection", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+        } else {
+        
+            if addVenueView.collectionTextField.text != "" {
+                FileManagerHelper.manager.addVenueToANewCollection(collectionName: addVenueView.collectionTextField.text!, venueToSave: savedVenue, and: nil)
+                
+            }
         }
         
         let alert = UIAlertController(title: "Saved to Collection", message: "\(oneVenue.name) was saved to \(addVenueView.collectionTextField.text!)", preferredStyle: .alert)

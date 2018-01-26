@@ -14,27 +14,30 @@ class AddVenueView: UIView {
         label.text = "Leave a tip"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight(rawValue: 30))
-        label.backgroundColor = .red
+        label.backgroundColor = UIColor.groupTableViewBackground
         return label
     }()
     
     lazy var collectionTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "enter a new collection title"
+        tf.layer.borderWidth = 1
+        tf.placeholder = "Enter a new collection title"
         return tf
     }()
     
     lazy var tipTextField: UITextField = {
         let tf = UITextField()
-        tf.backgroundColor = .yellow
+        tf.layer.borderWidth = 1
+        tf.placeholder = "Enter tip here"
+//        tf.backgroundColor = .yellow
         return tf
     }()
     
-    //TODO: CollectionsCustomCollectionViewCell does not have the green plus on it
+    // CollectionsCustomCollectionViewCell does not have the green plus on it
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-        cv.backgroundColor = .green
+        cv.backgroundColor = UIColor.groupTableViewBackground
         cv.register(CollectionsCustomCollectionViewCell.self, forCellWithReuseIdentifier: "CollectionsCustomCollectionViewCell")
         return cv
     }()
@@ -113,7 +116,7 @@ class AddVenueView: UIView {
         collectionView.snp.makeConstraints{(make) -> Void in
             make.top.equalTo(tipTextField.snp.bottom)
             make.width.equalTo(snp.width)
-            make.height.equalTo(snp.height).multipliedBy(0.3)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
             make.centerX.equalTo(snp.centerX)
         }
         
