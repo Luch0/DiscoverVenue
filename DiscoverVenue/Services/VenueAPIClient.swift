@@ -49,6 +49,7 @@ class VenueAPIClient {
         Alamofire.request(foursquareBaseURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData{ (dataResponse) in
             if let error = dataResponse.error {
                 print("data response error: \(error.localizedDescription)")
+                
                 self.delegate?.VenueAPIClient(_venueAPIClient: self, didReceiveVenues: nil)
             } else if let data = dataResponse.data {
                 do {
