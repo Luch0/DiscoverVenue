@@ -79,7 +79,7 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         print("Selected IndexPath: \(indexPath)")
         //Segue to venueView here
         
-                //        TODO: use dependency injection to pass Venue Model Object to dvc
+                // use dependency injection to pass Venue Model Object to dvc
                 
                 let cell = modalSavedVenuesView.tableView.cellForRow(at: indexPath) as! VenueTableViewCell
                 guard let image = cell.venueImageView.image else { return }
@@ -141,7 +141,7 @@ extension ModalSavedVenuesViewController: UITableViewDataSource {
         //cell.configureCell(venue: aVenue.venue, venueImageAPIClient: nil)
         
         cell.nameLabel.text = "\(aVenue.venue.name)"
-        cell.ratingLabel.text = "\(aVenue.tip ?? "Info Unavailable")"
+        cell.categoryLabel.text = "\(aVenue.tip ?? "Info Unavailable")"
         
         if let savedImage = FileManagerHelper.manager.getImage(with: aVenue.id) {
             cell.venueImageView.image = savedImage
