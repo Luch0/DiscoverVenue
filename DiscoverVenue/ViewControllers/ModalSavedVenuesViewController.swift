@@ -12,7 +12,7 @@ import UIKit
 
 
 class ModalSavedVenuesViewController: UIViewController {
-
+    
     
     
     //Func to set up modalSavedVenuesVC when called
@@ -33,12 +33,13 @@ class ModalSavedVenuesViewController: UIViewController {
         view.addSubview(modalSavedVenuesView)
         modalSavedVenuesView.tableView.delegate = self
         modalSavedVenuesView.tableView.dataSource = self
+        modalSavedVenuesView.tableView.rowHeight = UITableViewAutomaticDimension
         setupView()
         animateTable()
-
+        
         
     }
-
+    
     
     private func animateTable() {
         modalSavedVenuesView.tableView.reloadData()
@@ -55,7 +56,7 @@ class ModalSavedVenuesViewController: UIViewController {
             delayCounter += 1
         }
     }
-
+    
     private func setupView() {
         view.backgroundColor = .purple
         
@@ -70,7 +71,7 @@ class ModalSavedVenuesViewController: UIViewController {
     }
     
     
-
+    
 }
 extension ModalSavedVenuesViewController: UITableViewDelegate {
     
@@ -82,13 +83,13 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         //let SRDVC = SearchResultDetailViewController()
         //self.navigationController?.pushViewController(SRDVC, animated: true)
         
-//        let DetailVC = ModalSavedVenuesViewController()
-//
-//        let mSVVCinNavCon = UINavigationController(rootViewController: DetailVC)
-//
-//        DetailVC.modalTransitionStyle = .crossDissolve
-//        DetailVC.modalPresentationStyle = .overCurrentContext
-//        present(mSVVCinNavCon, animated: true, completion: nil)
+        //        let DetailVC = ModalSavedVenuesViewController()
+        //
+        //        let mSVVCinNavCon = UINavigationController(rootViewController: DetailVC)
+        //
+        //        DetailVC.modalTransitionStyle = .crossDissolve
+        //        DetailVC.modalPresentationStyle = .overCurrentContext
+        //        present(mSVVCinNavCon, animated: true, completion: nil)
     }
     
 }
@@ -105,20 +106,19 @@ extension ModalSavedVenuesViewController: UITableViewDataSource {
         
         let aVenue = aVenueCollection[indexPath.row]
         
-        cell.textLabel?.text = "\(aVenue.id)"
+        //cell.configureCell(venue: aVenue.venue, venueImageAPIClient: nil)
         
-        if aVenue.imageURL != nil {
-            //set image based of aVenue.imageURL here
-            //cell.collectionImageView.image = aVenue.imageURL
+        cell.nameLabel.text = "\(aVenue.venue.name)"
+        cell.ratingLabel.text = "\(aVenue.tip ?? "Info Unavailable")"
+        
+        if let savedImage = FileManagerHelper.manager.getImage(with: aVenue.id) {
+            cell.venueImageView.image = savedImage
         } else {
-            cell.imageView?.image = #imageLiteral(resourceName: "placeholder") //Placeholder
+            cell.venueImageView.image = #imageLiteral(resourceName: "placeholder")
         }
-        
         return cell
         
-        
     }
-    
     
 }
 
