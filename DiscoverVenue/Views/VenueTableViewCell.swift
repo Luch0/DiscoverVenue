@@ -77,10 +77,9 @@ class VenueTableViewCell: UITableViewCell {
     private func setupVenueImage() {
         self.addSubview(venueImageView)
         venueImageView.snp.makeConstraints { (make) -> Void in
-            make.centerY.equalTo(self.safeAreaLayoutGuide.snp.centerY)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height)
-            make.width.equalTo(venueImageView.snp.height)
-            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
+            make.centerY.equalTo(snp.centerY)
+            make.height.width.equalTo(snp.height)
+            make.leading.equalTo(snp.leading).offset(10)
         }
     }
     
@@ -88,8 +87,8 @@ class VenueTableViewCell: UITableViewCell {
         addSubview(nameLabel)
         nameLabel.snp.makeConstraints { (make) -> Void in
             make.leading.equalTo(venueImageView.snp.trailing).offset(10)
-            make.trailing.equalTo(snp.trailing).offset(-10)
-            make.centerY.equalTo(self.safeAreaLayoutGuide.snp.centerY)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
+            make.centerY.equalTo(safeAreaLayoutGuide.snp.centerY)
         }
         
     }
@@ -99,7 +98,7 @@ class VenueTableViewCell: UITableViewCell {
         ratingLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
             make.leading.equalTo(venueImageView.snp.trailing).offset(10)
-            make.trailing.equalTo(snp.trailing).offset(-10)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
         }
     }
     

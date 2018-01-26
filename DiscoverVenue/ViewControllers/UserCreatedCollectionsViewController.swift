@@ -85,14 +85,15 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         // using dependency injection to pass Data Object into Venue Collection View Controller
         let modalSavedVenuesVC = ModalSavedVenuesViewController()
         
+        
         let mSVVCinNavCon = UINavigationController(rootViewController: modalSavedVenuesVC)
+        //func to configure view on VC
+        modalSavedVenuesVC.configureSavedVenueVC(aSpecificCollection: aSpecificCollection)
         
         modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
         modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
         present(mSVVCinNavCon, animated: true, completion: nil)
         
-        //func to configure view on VC
-        modalSavedVenuesVC.configureSavedVenueVC(aSpecificCollection: aSpecificCollection)
         
     }
     
@@ -136,6 +137,7 @@ extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
         }
         
         cell.collectionNameLabel.text = aCollection.collectionName
+        
         
         
         return cell
