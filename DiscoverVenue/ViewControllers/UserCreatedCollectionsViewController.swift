@@ -8,7 +8,11 @@
 
 import UIKit
 
+
+
 class UserCreatedCollectionsViewController: UIViewController {
+    
+    
     
     private let userCreatedCollectionsView = UserCreatedCollectionsView()
     private let cellSpacing: CGFloat =  5.0
@@ -16,22 +20,22 @@ class UserCreatedCollectionsViewController: UIViewController {
     private var venuesCollectionArray = [VenuesCollections]() {
         didSet {
             userCreatedCollectionsView.collectionView.reloadData()
-            //FileManagerHelper.manager
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        addCollectionVC.refreshDelegate = self
         //venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        userCreatedCollectionsView.collectionView.reloadData()
         setUpView()
         venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
+        userCreatedCollectionsView.collectionView.reloadData()
     }
     
     private func setUpView() {
@@ -48,12 +52,12 @@ class UserCreatedCollectionsViewController: UIViewController {
     }
     
     
+    private let addCollectionVC = AddCollectionViewController()
     
     @objc private func addTapped() {
         // Present AddCollectionViewController
         print("Present AddCollectionViewController")
         
-        let addCollectionVC = AddCollectionViewController()
         
         let addCollectionViewWithNavController = UINavigationController(rootViewController: addCollectionVC)
         
@@ -161,6 +165,14 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
     }
+}
+extension UserCreatedCollectionsViewController: RefreshFromModalSaveDelegate {
+    func viewRemovedRefreshNowPlease() {
+        venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
+        userCreatedCollectionsView.collectionView.reloadData()
+    }
+    
+    
 }
 
 
