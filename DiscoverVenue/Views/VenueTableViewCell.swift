@@ -18,7 +18,7 @@ class VenueTableViewCell: UITableViewCell {
     lazy var venueImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .gray
         return imageView
     }()
     
@@ -29,19 +29,19 @@ class VenueTableViewCell: UITableViewCell {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         label.numberOfLines = 0
-        label.textColor = .white
-        label.backgroundColor = .black
+        label.textColor = .black
+        
         return label
     }()
     
     //    RatingLabel
-    lazy var ratingLabel: UILabel = {
+    lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Rating"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .white
-        label.backgroundColor = .black
+        label.textColor = .black
+       
         return label
     }()
     
@@ -94,8 +94,8 @@ class VenueTableViewCell: UITableViewCell {
     }
     
     private func setupRatingLabel() {
-        addSubview(ratingLabel)
-        ratingLabel.snp.makeConstraints { (make) -> Void in
+        addSubview(categoryLabel)
+        categoryLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
             make.leading.equalTo(venueImageView.snp.trailing).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
@@ -104,6 +104,12 @@ class VenueTableViewCell: UITableViewCell {
     
     public func configureCell(venue: Venue, venueImageAPIClient: VenueImageAPIClient) {
         nameLabel.text = venue.name
+        if venue.categories.isEmpty {
+            categoryLabel.text = "Unknown category"
+        } else {
+            categoryLabel.text = venue.categories[0].name
+        }
+
         self.venueImageAPIClient = venueImageAPIClient
         self.venueImageAPIClient.delegate = self
         self.venueImageView.kf.indicatorType = .activity

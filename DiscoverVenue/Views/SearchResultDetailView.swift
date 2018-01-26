@@ -133,7 +133,12 @@ class SearchResultDetailView: UIView {
     
     func configureDetails(venue: Venue, image: UIImage) {
         self.label.text = venue.name
-        self.restaurantTypelabel.text = venue.categories[0].name
+        // TODO: Check if category array is empty
+        if venue.categories.isEmpty {
+            self.restaurantTypelabel.text = "Unknown Category"
+        } else {
+            self.restaurantTypelabel.text = venue.categories[0].name
+        }
         self.detailedImageView.kf.indicatorType = .activity
         self.detailedImageView.image = image
         guard let address = venue.location.address else {
