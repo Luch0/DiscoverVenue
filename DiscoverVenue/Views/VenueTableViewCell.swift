@@ -35,7 +35,7 @@ class VenueTableViewCell: UITableViewCell {
     }()
     
     //    RatingLabel
-    lazy var ratingLabel: UILabel = {
+    lazy var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "Rating"
         label.textAlignment = .center
@@ -94,8 +94,8 @@ class VenueTableViewCell: UITableViewCell {
     }
     
     private func setupRatingLabel() {
-        addSubview(ratingLabel)
-        ratingLabel.snp.makeConstraints { (make) -> Void in
+        addSubview(categoryLabel)
+        categoryLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
             make.leading.equalTo(venueImageView.snp.trailing).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
@@ -104,6 +104,12 @@ class VenueTableViewCell: UITableViewCell {
     
     public func configureCell(venue: Venue, venueImageAPIClient: VenueImageAPIClient) {
         nameLabel.text = venue.name
+        if venue.categories.isEmpty {
+            categoryLabel.text = "Unknown category"
+        } else {
+            categoryLabel.text = venue.categories[0].name
+        }
+
         self.venueImageAPIClient = venueImageAPIClient
         self.venueImageAPIClient.delegate = self
         self.venueImageView.kf.indicatorType = .activity

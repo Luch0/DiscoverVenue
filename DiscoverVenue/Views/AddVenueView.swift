@@ -33,7 +33,7 @@ class AddVenueView: UIView {
         return tf
     }()
     
-    //TODO: CollectionsCustomCollectionViewCell does not have the green plus on it
+    // CollectionsCustomCollectionViewCell does not have the green plus on it
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
