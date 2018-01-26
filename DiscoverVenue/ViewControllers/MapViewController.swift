@@ -196,7 +196,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let deatilVC = SearchResultDetailViewController(venue: currentVenue, image: NSCacheHelper.manager.getImage(with: currentVenue.id)!)
+        let deatilVC = SearchResultDetailViewController(venue: currentVenue, image: NSCacheHelper.manager.getImage(with: currentVenue.id)!, savedVenue: nil)
         navigationController?.pushViewController(deatilVC, animated: true)
     }
     
