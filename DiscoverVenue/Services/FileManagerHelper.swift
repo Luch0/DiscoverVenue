@@ -25,6 +25,7 @@ class FileManagerHelper {
     // returns documents directory path for app sandbox
     public func documentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(paths[0])
         return paths[0]
     }
     
@@ -50,9 +51,7 @@ class FileManagerHelper {
         print("===================================================\n")
     }
     
-    
-    
-    
+
     //    load from documents directory
     public func loadFromDisk() {
         let path = dataFilePath(withPathName: FileManagerHelper.kPathname)
@@ -67,10 +66,8 @@ class FileManagerHelper {
     
     
     // This adds a VenueCollection to our array of VenueCollections
-    public func addAVenueCollection(venueCollection: VenuesCollections) -> Bool {
+    public func addAVenueCollection(venueCollection: VenuesCollections) {
         venuesCollectionsArr.append(venueCollection)
-        print(venuesCollectionsArr)
-        return true
     }
     
     //     This adds a Venue to the Array inside of a VenueCollection
