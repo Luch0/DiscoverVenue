@@ -15,7 +15,7 @@ class SearchResultsTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        //view.backgroundColor = .yellow
         view.addSubview(venueView)
         configureNavBar()
         //        setup delegate and datasource
@@ -91,6 +91,6 @@ extension SearchResultsTableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160.0
+        return 120.0
     }
 }
