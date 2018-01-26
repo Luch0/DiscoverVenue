@@ -15,7 +15,7 @@ class SearchResultsTableViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        //view.backgroundColor = .yellow
         view.addSubview(venueView)
         configureNavBar()
         //        setup delegate and datasource
@@ -42,6 +42,24 @@ class SearchResultsTableViewController: UIViewController {
 }
 
 extension SearchResultsTableViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var numOfSections: Int = 0
+        if tableViewVenues.count > 0 {
+            venueView.tableView.backgroundView = nil
+            venueView.tableView.separatorStyle = .singleLine
+            numOfSections = 1
+        } else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: venueView.tableView.bounds.size.width, height: venueView.tableView.bounds.size.height))
+            noDataLabel.text = "No Results Yet"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            venueView.tableView.backgroundView = noDataLabel
+            venueView.tableView.separatorStyle = .none
+        }
+        return numOfSections
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableViewVenues.count
     }
@@ -65,26 +83,7 @@ extension SearchResultsTableViewController: UITableViewDelegate {
         //        TODO: use dependency injection to pass Venue Model Object to dvc
 //                    let venue = venues[indexPath.row]
         let cell = tableView.cellForRow(at: indexPath) as! VenueTableViewCell
-        //            var cellImage: UIImage!
-        //            if let image = cell.venueImageView.image {
-        //                cellImage = image
-        //            } else {
-        //                cellImage = UIImage(named:"placeholder-image")
-        //            }
-        cell.nameLabel.text = "Hello"
-        cell.ratingLabel.text = "Good"
-        
-//        let dvc = SearchResultDetailViewController()//(venue: venue, image: cellImage )
-//        //        the way the modal comes on the screen
-//        dvc.modalTransitionStyle = .crossDissolve
-//        dvc.modalPresentationStyle = .overCurrentContext
-//        present(dvc, animated: true, completion: nil)
-        
-//        let SRDVC = SearchResultDetailViewController()
-//        //create nav controller as its root
-//        let navController = UINavigationController(rootViewController:SRDVC)
-//        SRDVC.modalTransitionStyle = .crossDissolve
-//        SRDVC.modalPresentationStyle = .currentContext
+
         guard let image = cell.venueImageView.image else { return }
         let SRDVC = SearchResultDetailViewController(venue: tableViewVenues[indexPath.row], image: image)
         self.navigationController?.pushViewController(SRDVC, animated: true)
@@ -92,6 +91,6 @@ extension SearchResultsTableViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160.0
+        return 120.0
     }
 }

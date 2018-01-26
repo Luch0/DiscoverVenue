@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import Kingfisher
+import Alamofire
 
 class MapViewController: UIViewController {
     
@@ -203,6 +204,12 @@ extension MapViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         mapView.venuesCollectionView.isHidden = false
+        
+        if !NetworkReachabilityManager()!.isReachable {
+            showAlertController(with: "Error", message: "No internet connection")
+            searchBar.resignFirstResponder()
+            return
+        }
         
         guard let venueText = mapView.venueSearchbBar.text else { return }
         if venueText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {

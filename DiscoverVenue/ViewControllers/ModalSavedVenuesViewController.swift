@@ -8,8 +8,13 @@
 
 import UIKit
 
+
+
+
 class ModalSavedVenuesViewController: UIViewController {
 
+    
+    
     //Func to set up modalSavedVenuesVC when called
     func configureSavedVenueVC(aSpecificCollection: VenuesCollections) {
         self.aVenueCollection = aSpecificCollection.savedVenues
