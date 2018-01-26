@@ -106,6 +106,26 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
 
 extension ModalSavedVenuesViewController: UITableViewDataSource {
     
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var numOfSections: Int = 0
+        if aVenueCollection.count > 0 {
+            modalSavedVenuesView.tableView.backgroundView = nil
+            modalSavedVenuesView.tableView.separatorStyle = .singleLine
+            numOfSections = 1
+        } else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: modalSavedVenuesView.tableView.bounds.size.width, height: modalSavedVenuesView.tableView.bounds.size.height))
+            noDataLabel.text = "No Saved Venues"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            modalSavedVenuesView.tableView.backgroundView = noDataLabel
+            modalSavedVenuesView.tableView.separatorStyle = .none
+        }
+        return numOfSections
+    }
+    
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return aVenueCollection.count
     }
