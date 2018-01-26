@@ -10,7 +10,7 @@ import UIKit
 
 class AddCollectionViewController: UIViewController {
     
-    let addCollectionView = AddCollectionView()
+    private let addCollectionView = AddCollectionView()
     
     
     override func viewDidLoad() {
@@ -35,7 +35,7 @@ class AddCollectionViewController: UIViewController {
         
     }
     
-    @ objc func createCollection() {
+    @ objc private func createCollection() {
         if addCollectionView.textField.text == "" {
             print("Textfield was empty")
             
@@ -53,7 +53,7 @@ class AddCollectionViewController: UIViewController {
         }
     }
     
-    @ objc func cancelButton() {
+    @ objc private func cancelButton() {
         self.dismiss(animated: true, completion: nil)
     }
     
