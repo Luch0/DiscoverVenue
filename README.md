@@ -26,7 +26,19 @@ pod install
 
 * Allow location services access. DiscoverVenue is ready to use. Search for a venue! 
 
-//need to add gifs of project, use format of group proj repo
+<a href="https://imgflip.com/gif/23ez8x"><img src="https://i.imgflip.com/23ez8x.gif" title="made at imgflip.com"/></a>
+
+#### Search For A Venue
+<a href="https://imgflip.com/gif/23ezfc"><img src="https://i.imgflip.com/23ezfc.gif" title="made at imgflip.com"/></a> 
+#### Add To Collections
+<a href="https://imgflip.com/gif/23ezvy"><img src="https://i.imgflip.com/23ezvy.gif" title="made at imgflip.com"/></a> 
+#### Directions
+<a href="https://imgflip.com/gif/23f0jw"><img src="https://i.imgflip.com/23f0jw.gif" title="made at imgflip.com"/></a>
+#### View Collections
+<a href="https://imgflip.com/gif/23f1ss"><img src="https://i.imgflip.com/23f1ss.gif" title="made at imgflip.com"/></a>
+<a href="https://imgflip.com/gif/23f04c"><img src="https://i.imgflip.com/23f04c.gif" title="made at imgflip.com"/></a>
+#### Long Press To Temp Zoom
+<a href="https://imgflip.com/gif/23f0ub"><img src="https://i.imgflip.com/23f0ub.gif" title="made at imgflip.com"/></a>
 
 ## Deployment to iOS device
 It is possible to sideload this project app into your iOS device by following these instructions :
