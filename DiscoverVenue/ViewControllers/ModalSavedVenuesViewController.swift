@@ -8,9 +8,6 @@
 
 import UIKit
 
-
-
-
 class ModalSavedVenuesViewController: UIViewController {
     
     
@@ -84,8 +81,10 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
                 let cell = modalSavedVenuesView.tableView.cellForRow(at: indexPath) as! VenueTableViewCell
                 guard let image = cell.venueImageView.image else { return }
                 let savedVenue = aVenueCollection[indexPath.row]
-                let searchResultsDVC = SearchResultDetailViewController(venue: savedVenue.venue, image: image)
+        let searchResultsDVC = SearchResultDetailViewController(venue: savedVenue.venue, image: image, savedVenue: savedVenue)
+                searchResultsDVC.sendSavedVenue(savedVenue: savedVenue)
                 self.navigationController?.pushViewController(searchResultsDVC, animated: true)
+                searchResultsDVC.myView.configureDetailsFromSaved(savedVenue: savedVenue)
         
             }
     
