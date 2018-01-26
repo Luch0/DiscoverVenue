@@ -13,7 +13,7 @@ class SearchResultsTableView: UIView {
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.register(VenueTableViewCell.self, forCellReuseIdentifier: "VenueCell")
-        tv.backgroundColor = .orange
+        tv.backgroundColor = UIColor.groupTableViewBackground
         return tv
     }()
     
@@ -28,7 +28,7 @@ class SearchResultsTableView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .black
+        //backgroundColor = .black
         setupViews()
     }
     
@@ -39,7 +39,7 @@ class SearchResultsTableView: UIView {
     private func setupTableView() {
         addSubview(tableView)
         tableView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp.top)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)

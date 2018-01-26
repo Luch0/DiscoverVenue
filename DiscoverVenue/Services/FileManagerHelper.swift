@@ -25,6 +25,7 @@ class FileManagerHelper {
     // returns documents directory path for app sandbox
     public func documentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(paths[0])
         return paths[0]
     }
     
