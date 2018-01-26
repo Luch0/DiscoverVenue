@@ -66,7 +66,7 @@ extension SearchResultsTableViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VenueCell", for: indexPath) as! VenueTableViewCell
-        //        TODO: we will be passing a venue Object here
+        // we will be passing a venue Object here
         let selectedVenue = tableViewVenues[indexPath.row]
         let venueImageAPIClient = VenueImageAPIClient()
         cell.configureCell(venue: selectedVenue, venueImageAPIClient: venueImageAPIClient)
@@ -76,11 +76,11 @@ extension SearchResultsTableViewController: UITableViewDataSource {
 
 extension SearchResultsTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        TODO: use dependency injection to pass Venue Model Object to dvc
+        // use dependency injection to pass Venue Model Object to dvc
         
         let cell = tableView.cellForRow(at: indexPath) as! VenueTableViewCell
         guard let image = cell.venueImageView.image else { return }
-        let SRDVC = SearchResultDetailViewController(venue: tableViewVenues[indexPath.row], image: image)
+        let SRDVC = SearchResultDetailViewController(venue: tableViewVenues[indexPath.row], image: image, savedVenue: nil)
         self.navigationController?.pushViewController(SRDVC, animated: true)
         
     }

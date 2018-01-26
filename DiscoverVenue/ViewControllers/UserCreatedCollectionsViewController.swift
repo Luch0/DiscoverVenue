@@ -90,7 +90,7 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         //func to configure view on VC
         modalSavedVenuesVC.configureSavedVenueVC(aSpecificCollection: aSpecificCollection)
         
-        modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
+        modalSavedVenuesVC.modalTransitionStyle = .coverVertical
         modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
         present(mSVVCinNavCon, animated: true, completion: nil)
         

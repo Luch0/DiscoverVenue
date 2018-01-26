@@ -18,6 +18,8 @@ class MapViewController: UIViewController {
     
     private var firstTime = true // only zoom in to location at app start
     
+    private var currentVenue: Venue!
+    
     private var venues = [Venue]() {
         didSet {
             mapView.venuesCollectionView.reloadData()
@@ -115,7 +117,7 @@ class MapViewController: UIViewController {
     }
     
     @objc private func showVenuesTableView() {
-        // TODO: pass venues data to SearchResultsTableViewController
+        // pass venues data to SearchResultsTableViewController
         let tableViewResults = SearchResultsTableViewController(venues: venues)
         self.navigationController?.pushViewController(tableViewResults, animated: true)
     }
@@ -187,10 +189,15 @@ extension MapViewController: MKMapViewDelegate {
         let index = venueAnnotations.index{ $0 === view.annotation }
         guard let venueAnnotationIndex = index else { print("Index is nil"); return }
         
-        //let venue = venues[venueAnnotationIndex]
+        currentVenue = venues[venueAnnotationIndex]
         let indexPath = IndexPath(item: venueAnnotationIndex, section: 0)
         self.mapView.venuesCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         // idea: border color for selected cell
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let deatilVC = SearchResultDetailViewController(venue: currentVenue, image: NSCacheHelper.manager.getImage(with: currentVenue.id)!, savedVenue: nil)
+        navigationController?.pushViewController(deatilVC, animated: true)
     }
     
 }
@@ -199,6 +206,7 @@ extension MapViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         mapView.locationSearchBar.placeholder = "Search for a Location"
+        mapView.venueSearchbBar.placeholder = "Search for a Venue"
         return true
     }
     
@@ -211,13 +219,13 @@ extension MapViewController: UISearchBarDelegate {
             return
         }
         
-        guard let venueText = mapView.venueSearchbBar.text else { return }
-        if venueText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            showAlertController(with: "Error", message: "Must enter a venue to search")
-            searchBar.text = ""
-            return
-        }
+        guard var venueText = mapView.venueSearchbBar.text else { return }
         
+        if venueText.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+            mapView.venueSearchbBar.placeholder = "Coffee"
+            venueText = "Coffee"
+        }
+    
         guard let locationText = mapView.locationSearchBar.text else { return }
 
         var location: String?
