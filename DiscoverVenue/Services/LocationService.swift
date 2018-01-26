@@ -7,8 +7,6 @@
 //
 
 import Foundation
-
-import Foundation
 import CoreLocation
 
 class LocationService: NSObject {
@@ -23,6 +21,9 @@ class LocationService: NSObject {
     static let manager = LocationService()
     
     private var locationManager: CLLocationManager!
+    
+    var lat: Double!
+    var lon: Double!
     
 }
 
@@ -59,6 +60,9 @@ extension LocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //print("Did update locations")
         
+        lat = locations.last?.coordinate.latitude
+        lon = locations.last?.coordinate.longitude
+        
         //print("didUpdateLocations: \(locations)")
         
         //guard let location = locations.last else { print("no location data"); return }
@@ -75,6 +79,14 @@ extension LocationService: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print("Location Manager: didChangeAuthorization - \(status)") // e.g .denied
+    }
+    
+    func getCurrentLatitude() -> Double? {
+        return lat
+    }
+    
+    func getCurrentLongitude() -> Double? {
+        return lon
     }
     
 }

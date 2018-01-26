@@ -8,7 +8,11 @@
 
 import UIKit
 
+
+
 class UserCreatedCollectionsViewController: UIViewController {
+    
+    
     
     private let userCreatedCollectionsView = UserCreatedCollectionsView()
     private let cellSpacing: CGFloat =  5.0
@@ -16,26 +20,25 @@ class UserCreatedCollectionsViewController: UIViewController {
     private var venuesCollectionArray = [VenuesCollections]() {
         didSet {
             userCreatedCollectionsView.collectionView.reloadData()
-            //FileManagerHelper.manager
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
+        addCollectionVC.refreshDelegate = self
         //venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        userCreatedCollectionsView.collectionView.reloadData()
         setUpView()
         venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
+        userCreatedCollectionsView.collectionView.reloadData()
     }
     
     private func setUpView() {
-        view.backgroundColor = .purple
         navigationItem.title = "My Collections"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
@@ -49,12 +52,12 @@ class UserCreatedCollectionsViewController: UIViewController {
     }
     
     
+    private let addCollectionVC = AddCollectionViewController()
     
     @objc private func addTapped() {
         // Present AddCollectionViewController
         print("Present AddCollectionViewController")
         
-        let addCollectionVC = AddCollectionViewController()
         
         let addCollectionViewWithNavController = UINavigationController(rootViewController: addCollectionVC)
         
@@ -82,19 +85,36 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegate {
         // using dependency injection to pass Data Object into Venue Collection View Controller
         let modalSavedVenuesVC = ModalSavedVenuesViewController()
         
+        
         let mSVVCinNavCon = UINavigationController(rootViewController: modalSavedVenuesVC)
+        //func to configure view on VC
+        modalSavedVenuesVC.configureSavedVenueVC(aSpecificCollection: aSpecificCollection)
         
         modalSavedVenuesVC.modalTransitionStyle = .crossDissolve
         modalSavedVenuesVC.modalPresentationStyle = .overCurrentContext
         present(mSVVCinNavCon, animated: true, completion: nil)
         
-        //func to configure view on VC
-        modalSavedVenuesVC.configureSavedVenueVC(aSpecificCollection: aSpecificCollection)
         
     }
     
 }
 extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        var numOfSections: Int = 0
+        if venuesCollectionArray.count > 0 {
+            userCreatedCollectionsView.collectionView.backgroundView = nil
+            numOfSections = 1
+        } else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: userCreatedCollectionsView.collectionView.bounds.size.width, height: userCreatedCollectionsView.collectionView.bounds.size.height))
+            noDataLabel.text = "No Collections Yet"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            userCreatedCollectionsView.collectionView.backgroundView = noDataLabel
+        }
+        return numOfSections
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return venuesCollectionArray.count
@@ -117,6 +137,7 @@ extension UserCreatedCollectionsViewController: UICollectionViewDataSource {
         }
         
         cell.collectionNameLabel.text = aCollection.collectionName
+        
         
         
         return cell
@@ -146,6 +167,14 @@ extension UserCreatedCollectionsViewController: UICollectionViewDelegateFlowLayo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return cellSpacing
     }
+}
+extension UserCreatedCollectionsViewController: RefreshFromModalSaveDelegate {
+    func viewRemovedRefreshNowPlease() {
+        venuesCollectionArray =  FileManagerHelper.manager.getVenuesCollectionsArr()
+        userCreatedCollectionsView.collectionView.reloadData()
+    }
+    
+    
 }
 
 

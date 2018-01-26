@@ -9,16 +9,16 @@ import UIKit
 
 class AddVenueViewController: UIViewController {
     
-    let cellSpacing: CGFloat =  5.0
+    private let cellSpacing: CGFloat =  5.0
     
-    let myView = SearchResultDetailView()
+    private let myView = SearchResultDetailView()
     
-    let addVenueView = AddVenueView()
+    private let addVenueView = AddVenueView()
     
-    var oneVenue: Venue!
-    var oneImage: UIImage!
+    private var oneVenue: Venue!
+    private var oneImage: UIImage!
     
-    func venueToSendToDVC(venue: Venue, image: UIImage) {
+    public func venueToSendToDVC(venue: Venue, image: UIImage) {
         self.oneVenue = venue
         self.oneImage = image
     }
@@ -73,6 +73,21 @@ class AddVenueViewController: UIViewController {
     
 }
 extension AddVenueViewController: UICollectionViewDelegate {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        var numOfSections: Int = 0
+        if FileManagerHelper.manager.getVenuesCollectionsArr().count > 0 {
+            addVenueView.collectionView.backgroundView = nil
+            numOfSections = 1
+        } else {
+            let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: addVenueView.collectionView.bounds.size.width, height: addVenueView.collectionView.bounds.size.height))
+            noDataLabel.text = "No Saved Collections Yet"
+            noDataLabel.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+            noDataLabel.textAlignment = .center
+            addVenueView.collectionView.backgroundView = noDataLabel
+        }
+        return numOfSections
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         

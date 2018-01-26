@@ -33,9 +33,9 @@ class VenueAPIClient {
 //    let clientID = "THCDBDGXTZOKSF2RFZYTDKGZMETDCI5PXVH2ZNVNI4UKTXDI"
 //    let clientSecret = "3QI1E2MX1RFINQOLGNCQN0VU42FMJ5JL4K0MNLB2VQA0WFY0"
     
-    let clientID = "AVBMS5AZM4ZURJ4EBSHNWD1EUTEW4JWVGK5ZBBBM3IBZ302N"
-    let clientSecret = "HG50R3IBLNM4VJ0TN3AX0QQSNHCXB452JS0BXE21LPVVFA3D"
-    let version = "20180117"
+    private let clientID = "AVBMS5AZM4ZURJ4EBSHNWD1EUTEW4JWVGK5ZBBBM3IBZ302N"
+    private let clientSecret = "HG50R3IBLNM4VJ0TN3AX0QQSNHCXB452JS0BXE21LPVVFA3D"
+    private let version = "20180117"
     
     func getVenues(near location: String, with query: String) {
         
@@ -49,6 +49,7 @@ class VenueAPIClient {
         Alamofire.request(foursquareBaseURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: nil).responseData{ (dataResponse) in
             if let error = dataResponse.error {
                 print("data response error: \(error.localizedDescription)")
+                
                 self.delegate?.VenueAPIClient(_venueAPIClient: self, didReceiveVenues: nil)
             } else if let data = dataResponse.data {
                 do {

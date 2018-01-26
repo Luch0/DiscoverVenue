@@ -6,6 +6,7 @@
 //  Copyright © 2018 Luis Calle. All rights reserved.
 //
 import SnapKit
+import MapKit
 
 class SearchResultDetailViewController: UIViewController {
     
@@ -14,11 +15,48 @@ class SearchResultDetailViewController: UIViewController {
     private var venue: Venue!
     private var venueImage: UIImage!
     
+    private var longPressGesture = UILongPressGestureRecognizer()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
-        view.backgroundColor = .yellow
+        view.backgroundColor = UIColor.groupTableViewBackground
+        myView.directionsButton.addTarget(self, action: #selector(openAppleMaps), for: .touchUpInside)
         view.addSubview(myView)
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureHandler))
+        myView.detailedImageView.isUserInteractionEnabled = true
+        myView.detailedImageView.addGestureRecognizer(longPressGesture)
+    }
+    
+    
+    @objc func longPressGestureHandler(recognizer:UIPinchGestureRecognizer){
+        switch recognizer.state {
+        case .began:
+            UIView.animate(withDuration: 0.05,
+                           animations: {
+                            self.myView.detailedImageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            },
+                           completion: nil)
+        case .ended:
+            UIView.animate(withDuration: 0.05) {
+                self.myView.detailedImageView.transform = CGAffineTransform.identity
+            }
+        default: break
+        }
+    }
+    
+    @objc private func openAppleMaps() {
+//        guard let latAndLong = venue.location.labeledLatLngs else {
+//            // alert controller there is no lat and long
+//            return
+//        }
+        let userCoordinate = CLLocationCoordinate2D(latitude: LocationService.manager.getCurrentLatitude()!, longitude: LocationService.manager.getCurrentLongitude()!)
+        let placeCoordinate = CLLocationCoordinate2D(latitude: venue.location.lat, longitude: venue.location.lng)
+        let directionsURLString = "http://maps.apple.com/?saddr=\(userCoordinate.latitude),\(userCoordinate.longitude)&daddr=\(placeCoordinate.latitude),\(placeCoordinate.longitude)"
+        
+        UIApplication.shared.open(URL(string: directionsURLString)!, options: [:]) { (done) in
+            print("launched apple maps")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
