@@ -18,7 +18,7 @@ class VenueTableViewCell: UITableViewCell {
     lazy var venueImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .gray
         return imageView
     }()
     
@@ -29,8 +29,8 @@ class VenueTableViewCell: UITableViewCell {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         label.numberOfLines = 0
-        label.textColor = .white
-        label.backgroundColor = .black
+        label.textColor = .black
+        
         return label
     }()
     
@@ -40,8 +40,8 @@ class VenueTableViewCell: UITableViewCell {
         label.text = "Rating"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        label.textColor = .white
-        label.backgroundColor = .black
+        label.textColor = .black
+       
         return label
     }()
     
