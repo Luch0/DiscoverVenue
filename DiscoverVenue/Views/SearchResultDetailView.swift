@@ -152,6 +152,9 @@ class SearchResultDetailView: UIView {
     func configureDetailsFromSaved(savedVenue: SavedVenue) {
         self.label.text = savedVenue.venue.name
         //Check if category array is empty
+        if savedVenue.tip != "" {
+            tiplabel.text = savedVenue.tip
+        }
         if savedVenue.venue.categories.isEmpty {
             self.restaurantTypelabel.text = "Unknown Category"
         } else {
