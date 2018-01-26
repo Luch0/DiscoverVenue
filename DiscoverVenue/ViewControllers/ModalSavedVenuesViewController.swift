@@ -79,6 +79,16 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         print("Selected IndexPath: \(indexPath)")
         //Segue to venueView here
         
+                //        TODO: use dependency injection to pass Venue Model Object to dvc
+                
+                let cell = modalSavedVenuesView.tableView.cellForRow(at: indexPath) as! VenueTableViewCell
+                guard let image = cell.venueImageView.image else { return }
+                let savedVenue = aVenueCollection[indexPath.row]
+                let searchResultsDVC = SearchResultDetailViewController(venue: savedVenue.venue, image: image)
+                self.navigationController?.pushViewController(searchResultsDVC, animated: true)
+        
+            }
+        
         // TODO: Needs to call singleton from file manager to load savedVenues collections
         //let SRDVC = SearchResultDetailViewController()
         //self.navigationController?.pushViewController(SRDVC, animated: true)
@@ -90,7 +100,7 @@ extension ModalSavedVenuesViewController: UITableViewDelegate {
         //        DetailVC.modalTransitionStyle = .crossDissolve
         //        DetailVC.modalPresentationStyle = .overCurrentContext
         //        present(mSVVCinNavCon, animated: true, completion: nil)
-    }
+//    }
     
 }
 
@@ -119,6 +129,7 @@ extension ModalSavedVenuesViewController: UITableViewDataSource {
         return cell
         
     }
+    
     
 }
 
